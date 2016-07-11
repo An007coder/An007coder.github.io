@@ -1,0 +1,731 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="目前大多数游戏公司用的开发引擎是Cocos2d-x和Unity3D。本系列为Cocos2d-x，后期将Cocos2d-x系列写完也会写一个Unity3D的系列教程。下面正式进入Cocos2d-x系列教程。
+本博文主要内容　　★ Node 节点类的功能与用法　　★ Scene 场景类的功能与用法
+Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承自Ref类。　　注：Co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cocos2d-x基础知识系列教程【一】《Node与Scene的概述》">
+<meta property="og:url" content="http://www.an-coder.com/2016/07/04/Cocos2d-x-one-1/index.html">
+<meta property="og:site_name" content="An_coder">
+<meta property="og:description" content="目前大多数游戏公司用的开发引擎是Cocos2d-x和Unity3D。本系列为Cocos2d-x，后期将Cocos2d-x系列写完也会写一个Unity3D的系列教程。下面正式进入Cocos2d-x系列教程。
+本博文主要内容　　★ Node 节点类的功能与用法　　★ Scene 场景类的功能与用法
+Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承自Ref类。　　注：Co">
+<meta property="og:updated_time" content="2016-07-11T16:04:11.300Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cocos2d-x基础知识系列教程【一】《Node与Scene的概述》">
+<meta name="twitter:description" content="目前大多数游戏公司用的开发引擎是Cocos2d-x和Unity3D。本系列为Cocos2d-x，后期将Cocos2d-x系列写完也会写一个Unity3D的系列教程。下面正式进入Cocos2d-x系列教程。
+本博文主要内容　　★ Node 节点类的功能与用法　　★ Scene 场景类的功能与用法
+Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承自Ref类。　　注：Co">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6289997537579369000,
+      author: '船长大人'
+    }
+  };
+</script>
+
+  <title> Cocos2d-x基础知识系列教程【一】《Node与Scene的概述》 | An_coder </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">An_coder</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于船长
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+            留言
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Cocos2d-x基础知识系列教程【一】《Node与Scene的概述》
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-04T20:56:01+08:00" content="2016-07-04">
+              2016-07-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Cocos2d-x/" itemprop="url" rel="index">
+                    <span itemprop="name">Cocos2d-x</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/04/Cocos2d-x-one-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/04/Cocos2d-x-one-1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+          	<span id="busuanzi_container_page_pv">  |  阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　目前大多数游戏公司用的开发引擎是Cocos2d-x和Unity3D。本系列为Cocos2d-x，后期将Cocos2d-x系列写完也会写一个Unity3D的系列教程。下面正式进入Cocos2d-x系列教程。</p>
+<h2 id="本博文主要内容"><a href="#本博文主要内容" class="headerlink" title="本博文主要内容"></a>本博文主要内容</h2><p>　　★ Node 节点类的功能与用法<br>　　★ Scene 场景类的功能与用法</p>
+<h2 id="Node-节点类"><a href="#Node-节点类" class="headerlink" title="Node 节点类"></a>Node 节点类</h2><p>　　节点类（Node）是Cocos2d-x中最重要的类，继承自Ref类。<br>　　<strong><em>注：</em></strong>Cocos2d-x 3.0之前，大部分类都继承Object类，在3.0之后将Object类重命名为Ref类。</p>
+<p>　　Cocos2d-x中所有需要绘制到屏幕的对象，或是自身包含要绘制到屏幕中的对象，都是继承自Node类，最常用的节点类包括场景（Scene）、层（Layer）、精灵（Sprite）等等，每一个节点只有一个父节点，但是可有由无数个子节点。</p>
+<p>　　一个节点的主要功能是：<br>　　★可以包含其他节点<br>　　★可以通过定时器预定消息和使用回调函数<br>　　★可以执行动作</p>
+<h3 id="Node-类的成员变量"><a href="#Node-类的成员变量" class="headerlink" title="Node 类的成员变量"></a>Node 类的成员变量</h3><p>　　Node类一些常用的受保护成员变量如下：<br>　　▲ _rotationX：表示节点X轴的水平旋转角度，节点以锚点为中心顺时针旋转，单位角度。变量类型为float，默认值为0。<br>　　▲ _rotationY：表示节点Y轴的垂直旋转角度，其他属性同 _rotationX。<br>　　▲ _scaleX：表示节点X轴的缩放比例，节点以锚点为中心缩放该比例。变量类型是float，默认值为1.0，其值小于1.0时为缩小，大于1.0时为放大。<br>　　▲ _scaleY：表示节点Y轴的缩放比例，其他属性同 _scaleX。<br>　　▲ _scaleZ：表示节点Z轴的缩放比例，3D坐标（X、Y、Z），其他属性同 _scaleX。<br>　　▲ _position：表示节点在屏幕中的位置。v3.0及以前版本时变量类型是Point，以point（点）为单位，默认只是屏幕的左下角坐标（0,0)。从v3.0以后版本建议变量类型使用Vec2，当然使用Point亦可。Position设置的是节点在父节点中的坐标位置。<br>　　▲ _skewX：表示节点X轴的倾斜角度，节点以锚点为中心，平行X轴顺时针变形，单位为角度，默认值为0。<br>　　▲ _skewY：表示节点Y轴的倾斜角度，节点以锚点为中心，平行Y轴逆时针变形，单位为角度，默认值为0。<br>　　▲ _anchorPoint：表示节点的锚点，其变量类型是Vec2。锚点的x和y的取值通常是0~1之间的实数，表示锚点相对于节点长宽的位置。例如（0，0）表示把节点的左下角作为锚点，（0，1）表示把节点的左上角作为锚点，（1，0）表示把节点的右下角作为锚点，（1，1）表示把节点的右上角作为锚点。节点默认的锚点为（0.5，0.5），即节点中心。<br>　　▲ _contentSize：表示未经转换的节点内容大小，变量类型是Size，默认值为（0，0），即长与宽。无论节点如何缩放和旋转，其值始终不变。对于精灵（Sprite）其值是该精灵的纹理显示部分的大小，对于层（Layer）和场景（Scene）其值的大小就是屏幕的大小。<br>　　▲ _localZOrder：表示节点相对于其“兄弟”节点（拥有共同父节点）的Z顺序值，变量类型是int。对于像精灵（Sprite）这种有视觉呈现的节点，该参数决定了节点的绘制顺序，Z值越小越先绘制，相同Z值越先调用添加到父节点越先绘制，因此zOrder值大的节点会“遮挡”zOrder值小的节点。<br>　　▲ _children：节点的子节点数组，变量类型是Vector<node*>。<br>　　▲ _parent：节点的父节点，变量类型是Node。<br>　　▲ _tag：用于识别节点的标识值，变量类型是int。<br>　　▲ _visible：表示节点的是否可见，变量类型是bool，默认值为true，即可见，为false是不可见。<br>　　▲ _running：表示当前节点是否在运行，变量类型是bool。</node*></p>
+<h3 id="Node-类的函数"><a href="#Node-类的函数" class="headerlink" title="Node 类的函数"></a>Node 类的函数</h3><p>　　Node类中的函数可以分为三大类，分别是对子节点的处理、如何执行动作和使用定时器预定消息，此外也有些函数不属于以上三大类，下面一一介绍。</p>
+<h4 id="处理子节点的函数"><a href="#处理子节点的函数" class="headerlink" title="处理子节点的函数"></a>处理子节点的函数</h4><p>　　Node类实现了所有添加、获取和删除子节点的函数，下面是一些常用的处理子节点的函数。<br>△ virtual void addChild(Node* child)：将新节点添加为当前节点的子节点，zOrder值为0。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatherNode-&gt;<span class="selector-tag">addChild</span>(childNode);		<span class="comment">//将childNode添加到fatherNode节点上，并且zOrder为0</span></span><br></pre></td></tr></table></figure></p>
+<p>△ virtual void addChild(Node* child, int localZOrder)：将新节点添加为当前节点的子节点并设置子节点的zOrder值。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatherNode-&gt;<span class="selector-tag">addChild</span>(childNode, <span class="number">123</span>);		<span class="comment">//将childNode添加到fatherNode节点上，并且zOrder值为123</span></span><br></pre></td></tr></table></figure></p>
+<p>△ virtual void addChild(Node* child, int localZOrder, int tag)：将新节点添加为当前节点的子节点并设置子节点的zOrder值和tag值。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatherNode-&gt;<span class="selector-tag">addChild</span>(childNode, <span class="number">123</span>, <span class="number">456</span>);		<span class="comment">//将childNode添加到fatherNode节点上，并且zOrder值为123，tag值为456</span></span><br></pre></td></tr></table></figure></p>
+<p>△ Node* getChildByTag(int m_tag)：在当前节点中获取tag值为m_tag的子节点，当子节点中有多个tag值为m_tag则返回第一个tag值为m_tag的子节点。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatherNode-&gt;<span class="selector-tag">getChildByTag</span>(<span class="number">456</span>);		<span class="comment">//获取fatherNode节点中tag值为456的子节点</span></span><br></pre></td></tr></table></figure></p>
+<p>△ virtual Vector<node*>&amp; getChildren()：获取该节点的所有子节点。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatherNode-&gt;<span class="selector-tag">getChildren</span>();		<span class="comment">//获取fatherNode节点的所有子节点</span></span><br></pre></td></tr></table></figure></node*></p>
+<p>△ virtual void removeChildByTag(int m_tag, bool cleanup = true)：通过tag值删除子节点。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatherNode-&gt;<span class="selector-tag">removeChildByTag</span>(<span class="number">456</span>);		<span class="comment">//删除fatherNode节点中tag值为456的子节点</span></span><br></pre></td></tr></table></figure></p>
+<p>△ virtual void removeChild(Node* child, bool cleanup = true)：通过节点指针删除子节点。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatherNode-&gt;<span class="selector-tag">removeChild</span>(childNode);		<span class="comment">//删除fatherNode节点中childNode子节点</span></span><br></pre></td></tr></table></figure></p>
+<p>△ virtual void removeAllChildren()：删除该节点的所有子节点。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatherNode-&gt;<span class="selector-tag">removeAllChildren</span>();		<span class="comment">//将fatherNode节点的所有子节点删除</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="执行动作的函数"><a href="#执行动作的函数" class="headerlink" title="执行动作的函数"></a>执行动作的函数</h4><p>△ Action<em> runAction(Action</em> action)：运行某个特定的动作，并返回所执行的动作。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sprite-&gt;<span class="selector-tag">runAction</span>(action);		<span class="comment">//sprite节点执行action动作</span></span><br></pre></td></tr></table></figure></p>
+<p>△ void stopAction(Action* action)：从运行列表中停止和删除一个特定的动作。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sprite-&gt;<span class="selector-tag">stopAction</span>(action);		<span class="comment">//停止并删除sprite节点中的action动作</span></span><br></pre></td></tr></table></figure></p>
+<p>△ void stopActionByTag(int m_tag)：从运行的动作列表中停止并删除tag值为m_tag的动作。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sprite-&gt;<span class="selector-tag">stopActionByTag</span>(<span class="number">1</span>);		<span class="comment">//停止并删除sprite节点中tag值为1的动作</span></span><br></pre></td></tr></table></figure></p>
+<p>△ void stopAllActions()：从运行的动作列表中停止并删除所有动作。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sprite-&gt;<span class="selector-tag">stopAllActions</span>();		<span class="comment">//停止并删除sprite节点的所有动作</span></span><br></pre></td></tr></table></figure></p>
+<p>△ Action* getActionByTag(int m_tag)：从运行的动作列表中获取tag值为m_tag的动作。<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sprite-&gt;<span class="selector-tag">getActionByTag</span>(<span class="number">1</span>);		<span class="comment">//获取sprite节点中tag值为1的动作</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="定时器事件的相关函数"><a href="#定时器事件的相关函数" class="headerlink" title="定时器事件的相关函数"></a>定时器事件的相关函数</h4><p>△ void scheduleUpdate(void)：启用定时器回调更新（update）函数，该函数每一帧都会被调用。每一个节点只可预定一个update函数，参数delta表示该函数上一次调用到这一次调用所经过的时间。Node默认并没有启用update回调更新函数，我们需要调用scheduleUpdate函数并重载update函数以执行自己的游戏逻辑。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> HelloWorld::init()</span><br><span class="line">&#123;</span><br><span class="line"><span class="comment">//省略初始化代码</span></span><br><span class="line"><span class="comment">//启用每帧定时器，即默认的定时器调用update函数</span></span><br><span class="line">scheduleUpdate();</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> HelloWorld::update(<span class="keyword">float</span> delta)</span><br><span class="line">&#123;</span><br><span class="line"><span class="comment">//游戏每一帧都会调用此方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>△ void schedule(SEL_SCHEDULE selector, float interval)：如果需要根据不同的时间间隔来触发不同的定时更新逻辑，就需要指定运行特定的更新函数。schedule_selector是一个把指定函数转换成函数指针的宏，用于创建schedule函数所需的函数指针；传入这个宏的函数应该包含一个float参数，表示距离前一次触发事件的时间间隔。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> HelloWorld::init()</span><br><span class="line">&#123;</span><br><span class="line"><span class="comment">//省略初始化代码</span></span><br><span class="line"><span class="comment">//启用自定义定时器，调用updatePerSecond函数，每隔0.5秒调用一次</span></span><br><span class="line">schedule(schedule_selector(HelloWorld::updatePerSecond), <span class="number">0.5f</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> HelloWorld::updatePerSecond(<span class="keyword">float</span> delta)</span><br><span class="line">&#123;</span><br><span class="line"><span class="comment">//自定义定时器的回调函数代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>△ void scheduleOnce(SEL_SCHEDULE selector, float delay)：指定运行特定的更新函数，并设置调用的延迟时间，但只运行一次。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> HelloWorld::init()</span><br><span class="line">&#123;</span><br><span class="line"><span class="comment">//省略初始化代码</span></span><br><span class="line"><span class="comment">//启用单次定时器，延迟1.0秒后调用updateOnce函数，只调用一次</span></span><br><span class="line">schedule(schedule_selector(HelloWorld::updateOnce), <span class="number">1.0f</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> HelloWorld::updateOnce(<span class="keyword">float</span> delta)</span><br><span class="line">&#123;</span><br><span class="line"><span class="comment">//单次定时器的回调函数代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>△ void unscheduleUpdate(void)：停止该节点的每帧定时器。<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//停止每帧定时器</span></span><br><span class="line">unscheduleUpdate();</span><br></pre></td></tr></table></figure></p>
+<p>△ void unschedule(SEL_SCHEDULE selector)：停止指定运行的自定义的定时器。<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//停止指定的自定义定时器，这里停止调用updatePerSecond的自定义定时器</span></span><br><span class="line">unschedule(schedule_selector(<span class="symbol">HelloWorld::</span>updatePerSecond));</span><br></pre></td></tr></table></figure></p>
+<p>△ void unscheduleAllSelectors(void)：停止该节点的所有定时器。<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//停止该节点的所有定时器</span></span><br><span class="line">unscheduleAllSelectors();</span><br></pre></td></tr></table></figure></p>
+<h4 id="其他函数"><a href="#其他函数" class="headerlink" title="其他函数"></a>其他函数</h4><p>△ virtual bool init()：该函数用于初始化节点，返回bool值，表示是否初始化成功。<br>△ virtual void onEnter()：当节点所在场景即将呈现时调用，如果进入时带有过渡效果，则在过渡开始时调用。<br>△ virtual void onEnterTransitionDidFinish()：当节点所在场景入场过渡效果结束后调用，如果没有过渡效果，则紧接着在onEnter()后被调用。<br>△ virtual void onExit()：当节点所在场景即将退出时调用。<br>△ virtual void onExitTransitionDidStart()：当节点的场景的出场过渡效果结束后调用，如果没有过渡效果，则紧接着在onExit()后被调用。<br>△ virtual void cleanup()：该函数用于停止所有运行中的动作和定时器。<br>△ virtual void draw()：重写该函数以绘制自己的节点。</p>
+<h3 id="坐标系"><a href="#坐标系" class="headerlink" title="坐标系"></a>坐标系</h3><p>　　无论是开发2D还是3D游戏，我们首先必须弄清楚坐标系的概念。在Cocos2d-x中，需要知道OpenGL坐标系、世界坐标系和节点坐标系等。</p>
+<h4 id="UI坐标系"><a href="#UI坐标系" class="headerlink" title="UI坐标系"></a>UI坐标系</h4><p>　　OS／Android／Windows　SDK中的通用UI坐标系默认起点坐标（x=0，y=0）位于左上角，X轴坐标从屏幕最左边开始，由左向右渐增，即越右ｘ坐标越大；Y轴坐标从屏幕最上边开始，由上向下渐增，即越下ｙ坐标越大。<br>　　UI坐标系又称为纹理坐标系，在Cocos2d-x中，只有从纹理中截取部分矩形时才使用这个坐标系。</p>
+<h4 id="OpenGL坐标系"><a href="#OpenGL坐标系" class="headerlink" title="OpenGL坐标系"></a>OpenGL坐标系</h4><p>　　OpenGL坐标系又称为绘图坐标系，Cocos2d-x以OpenGL和OpenGL ES为基础，所以支持的自然是OpenGL坐标系。OpenGL坐标系默认原点坐标（x=0，y=0）在屏幕左下角，X轴坐标从屏幕的最左边开始，由左向右渐增；Y轴坐标从屏幕的最下边开始，由下向上渐增。</p>
+<h4 id="世界坐标系"><a href="#世界坐标系" class="headerlink" title="世界坐标系"></a>世界坐标系</h4><p>　　世界坐标系又称为绝对坐标系，是游戏开发中的概念，它建立了描述其他坐标系所需要的参考标准，我们可以用世界坐标来描述其他坐标系的位置。<br>　　Cocos2d-x中的元素结构是有父子关系的层次结构，通过Node的position设置元素的位置使用的是相对其父节点的本地坐标系，而非世界坐标系。最后绘制在屏幕的时候，Cocos2d-x会把这些元素的本地节点坐标映射成世界坐标系坐标。世界坐标与OpenGL坐标系保持一致。</p>
+<h4 id="节点坐标系"><a href="#节点坐标系" class="headerlink" title="节点坐标系"></a>节点坐标系</h4><p>　　节点坐标系又称为本地坐标系，是和特定节点相关联的坐标系，每个节点都有独立的坐标系。当节点移动或改变方向时，和该节点关联的坐标系（该节点的子节点）也将随之移动或改变方向，这一切都是相对的。</p>
+<h4 id="锚点"><a href="#锚点" class="headerlink" title="锚点"></a>锚点</h4><p>　　锚点是Cocos2d-x中一个很重要的概念。每一个Node都有一个锚点（anchor point），锚点指定了纹理图像和所在节点原点（即position所表示的点）重合的点的位置。锚点的设置在Node类的成员变量中有提过，这里就不再赘述了。</p>
+<hr>
+<h2 id="Scene-场景类"><a href="#Scene-场景类" class="headerlink" title="Scene 场景类"></a>Scene 场景类</h2><p>　　Scene类是继承Node类的，但只是简单的继承，并没有提供特别的功能。场景只是层的容器，包含了所有需要显示的游戏元素。除了作为层的容器，场景还起到了流程控制的作用，使用<code>Director::getInstance()-&gt;replaceScene(newScene);</code>等函数可以使游戏在不同的场景切换。<br>　　根据游戏的内容，可以将场景分为三大类：<br>　　★ 展示类场景：播放视频或输出文字，用来显示游戏的介绍、提示和帮助界面。<br>　　★ 选项类场景：游戏主菜单、设置参数等。<br>　　★ 游戏内容场景：显示游戏中的内容。<br>　　目前，Scene类基本上没有附加任何其他的逻辑，它的功能通常是根据像素坐标把元素放置在场景中的相应位置。因为Director（导演）类只能操作Scene类，所以实际开发中通常都是将Scene作为其他所有节点的父节点，看作Layer（层）对象的一个容器。而Scene的子节点通常都是继承直接继承Layer类，Layer包含各个游戏对象。因为大多数情况下场景对象本身不包含任何游戏相关的代码，而且很少被子类化，因此它一般在Layer对象里通过create静态函数来创建。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Scene* HelloWorld::createScene()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">auto</span> scene = Scene::create();		<span class="comment">//创建一个Scene</span></span><br><span class="line">  <span class="keyword">auto</span> layer = HelloWorld::create();	<span class="comment">//HelloWorld类继承Layer类，因此创建一个HelloWorld类的layer</span></span><br><span class="line">  scene-&gt;addChild(layer);		<span class="comment">//将layer节点添加到scene节点上，scene为父节点，layer为scene的子节点</span></span><br><span class="line">  <span class="keyword">return</span> scene;				<span class="comment">//因为HelloWorld类的createScene()函数是一个返回Scene的函数，所以这里要返回scene</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>　　此外，如果要实现各种动画效果的场景切换，必须基于Scene场景进行切换。</p>
+<h3 id="TransitionScene-场景切换"><a href="#TransitionScene-场景切换" class="headerlink" title="TransitionScene 场景切换"></a>TransitionScene 场景切换</h3><p>　　在游戏中经常需要切换场景，在切换的时候需要一定的过渡效果，否则，场景的切换就会显得十分突兀。为此，Cocos2d-x提供了很多华丽的场景切换特效，例如淡入淡出、翻页、旋转等等，这些特效是通过TransitionScene系统特效类来实现的。<br>　　TransitionScene继承自Scene，而所有实现场景过渡效果的类都继承自TransitionScene。TransitionScene的主要函数如下：<br>　　★ void finish()：该函数在过渡效果完成后调用。<br>　　★ void hideOutShowIn()：部分过渡效果会使用该函数来隐藏更外面的场景。<br>　　★ bool initWithDuration(float time, Scene* scene)：该函数初始化一个场景过渡效果，参数为过渡时间和即将过渡到的场景。</p>
+<h3 id="Cocos2d-x-支持的场景过渡效果"><a href="#Cocos2d-x-支持的场景过渡效果" class="headerlink" title="Cocos2d-x 支持的场景过渡效果"></a>Cocos2d-x 支持的场景过渡效果</h3><p>　　Cocos2d-x 支持多种场景过渡效果，所有实现场景过渡效果的类都继承自TransitionScene，它们的create方法都有两个参数：第一个参数是场景过渡特效所用的时间；第二个参数是即将进入的场景。以下是部分过渡效果类及其描述：<br>　　★ TransitionRotoZoom：当前场景旋转变小，新场景旋转变大，实现转角切换效果。<br>　　★ TransitionJumpZoom：跳跃式，当前场景跳跃变小，新场景跳跃变大。<br>　　★ TransitionMoveInL：新场景从屏幕的左侧移入。<br>　　★ TransitionSlideInL：新场景从左侧滑入屏幕。<br>　　★ TransitionShrinkGrow：当前场景缩小，新场景在其之上变大，实现交错切换效果。<br>　　★ TransitionFlipX：水平翻转场景。<br>　　★ TransitionFlipAngular：一半水平翻转，一半垂直翻转场景。<br>　　★ TransitionZoomFlipX：水平翻转场景，同时有一定缩放效果。<br>　　★ TransitionZoomFlipAngular：一半水平、一半垂直翻转场景，同时有一定缩放效果。<br>　　★ TransitionFade：淡入淡出，原场景淡出，新场景淡入。<br>　　★ TransitionCrossFade：交叉淡入淡出效果。<br>　　★ TransitionTurnOffTiles：将当前场景随机分成方块，用分成方块的新场景随机地替换分成方块的旧场景。<br>　　★ <strong>……</strong><br>　　各位童鞋可以在cocos2d-x的解压文件加下查找相关源码阅读，也可查看<a href="http://www.cocos.com/doc/" target="_blank" rel="external">Cocos2d-x官方文档</a>与<a href="http://api.cocos.com/cn/" target="_blank" rel="external">Cocos2d-x API</a>。</p>
+<hr>
+<p><strong><em>版权声明：本文为船长原创文章，未经船长允许不得转载。</em></strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.png" alt="An_coder WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.png" alt="An_coder Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/04/Cocos2d-x-one-1/"
+           data-title="Cocos2d-x基础知识系列教程【一】《Node与Scene的概述》" data-url="http://www.an-coder.com/2016/07/04/Cocos2d-x-one-1/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            船长概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="An_coder" />
+          <p class="site-author-name" itemprop="name">An_coder</p>
+          <p class="site-description motion-element" itemprop="description">爱生活的程序猿</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/An007coder" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5634763996" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#本博文主要内容"><span class="nav-number">1.</span> <span class="nav-text">本博文主要内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-节点类"><span class="nav-number">2.</span> <span class="nav-text">Node 节点类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-类的成员变量"><span class="nav-number">2.1.</span> <span class="nav-text">Node 类的成员变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-类的函数"><span class="nav-number">2.2.</span> <span class="nav-text">Node 类的函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#处理子节点的函数"><span class="nav-number">2.2.1.</span> <span class="nav-text">处理子节点的函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#执行动作的函数"><span class="nav-number">2.2.2.</span> <span class="nav-text">执行动作的函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定时器事件的相关函数"><span class="nav-number">2.2.3.</span> <span class="nav-text">定时器事件的相关函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他函数"><span class="nav-number">2.2.4.</span> <span class="nav-text">其他函数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#坐标系"><span class="nav-number">2.3.</span> <span class="nav-text">坐标系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UI坐标系"><span class="nav-number">2.3.1.</span> <span class="nav-text">UI坐标系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OpenGL坐标系"><span class="nav-number">2.3.2.</span> <span class="nav-text">OpenGL坐标系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#世界坐标系"><span class="nav-number">2.3.3.</span> <span class="nav-text">世界坐标系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#节点坐标系"><span class="nav-number">2.3.4.</span> <span class="nav-text">节点坐标系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#锚点"><span class="nav-number">2.3.5.</span> <span class="nav-text">锚点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Scene-场景类"><span class="nav-number">3.</span> <span class="nav-text">Scene 场景类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TransitionScene-场景切换"><span class="nav-number">3.1.</span> <span class="nav-text">TransitionScene 场景切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cocos2d-x-支持的场景过渡效果"><span class="nav-number">3.2.</span> <span class="nav-text">Cocos2d-x 支持的场景过渡效果</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<div class="copyright" align="center" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">An_coder</span>
+</div>
+
+<div align="center">
+	<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+	</span>
+	<span class="with-love">
+    <i class="fa fa-heart"></i>
+  	</span>
+	<span id="busuanzi_container_site_uv">
+  	本站访客数<span id="busuanzi_value_site_uv"></span>人次
+	</span>
+</div>
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"an-coder"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+
+  
+  
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
