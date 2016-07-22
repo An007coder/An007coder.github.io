@@ -1,0 +1,725 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="上一篇Blog写了Cocos2d-x核心类的Node与Scene，这篇Blog写Cocos2d-x核心类的Layer、Director与Sprite。
+Layer 层类　　Layer（层）与Scene（场景）类似，也有着容器的特性，与Scene不同的是Layer为屏幕上可绘制的区域，Layer通常包含的是直接呈现在屏幕上的具体内容，如Sprite（精灵）、Button（按钮）等游戏元素。　　L">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cocos2d-x的Layer、Director与Sprite的概述">
+<meta property="og:url" content="http://www.an-coder.com/2016/07/11/Cocos2d-x-one-2/index.html">
+<meta property="og:site_name" content="An_coder">
+<meta property="og:description" content="上一篇Blog写了Cocos2d-x核心类的Node与Scene，这篇Blog写Cocos2d-x核心类的Layer、Director与Sprite。
+Layer 层类　　Layer（层）与Scene（场景）类似，也有着容器的特性，与Scene不同的是Layer为屏幕上可绘制的区域，Layer通常包含的是直接呈现在屏幕上的具体内容，如Sprite（精灵）、Button（按钮）等游戏元素。　　L">
+<meta property="og:updated_time" content="2016-07-22T15:53:26.168Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cocos2d-x的Layer、Director与Sprite的概述">
+<meta name="twitter:description" content="上一篇Blog写了Cocos2d-x核心类的Node与Scene，这篇Blog写Cocos2d-x核心类的Layer、Director与Sprite。
+Layer 层类　　Layer（层）与Scene（场景）类似，也有着容器的特性，与Scene不同的是Layer为屏幕上可绘制的区域，Layer通常包含的是直接呈现在屏幕上的具体内容，如Sprite（精灵）、Button（按钮）等游戏元素。　　L">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6289997537579369000,
+      author: '船长大人'
+    }
+  };
+</script>
+
+  <title> Cocos2d-x的Layer、Director与Sprite的概述 | An_coder </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">An_coder</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于船长
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+            留言板
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Cocos2d-x的Layer、Director与Sprite的概述
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-11T11:30:22+08:00" content="2016-07-11">
+              2016-07-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Cocos2d-x基础知识系列/" itemprop="url" rel="index">
+                    <span itemprop="name">Cocos2d-x基础知识系列</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/11/Cocos2d-x-one-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/11/Cocos2d-x-one-2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+          	<span id="busuanzi_container_page_pv">  |  阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　上一篇Blog写了Cocos2d-x核心类的Node与Scene，这篇Blog写Cocos2d-x核心类的Layer、Director与Sprite。</p>
+<h2 id="Layer-层类"><a href="#Layer-层类" class="headerlink" title="Layer 层类"></a>Layer 层类</h2><p>　　Layer（层）与Scene（场景）类似，也有着容器的特性，与Scene不同的是Layer为屏幕上可绘制的区域，Layer通常包含的是直接呈现在屏幕上的具体内容，如Sprite（精灵）、Button（按钮）等游戏元素。<br>　　Layer类本身并不做什么，它的功能是允许触摸、加速度计和键盘输入等。因为大多数游戏都会接收基本的触摸输入，所以Layer通常是第一个被加入Scene的类。Cocos2d-x中每个Scene都包含一个或多个Layer，每一层负责各自的任务，每一层都有各自的游戏元素，彼此叠加。多个层组合在一起就构成了游戏显示的UI界面。<br>　　简而言之，Layer类直接继承Node类，作为精灵和其他游戏元素的容器，同时可以接收触摸、加速度计和键盘输入的信息等，前提是触摸、加速度计和键盘输入等功能已经开启。<br>　　为了方便游戏开发者，Cocos2d-x内置了几种特殊的Layer，具体如下：<br>　　♠ScrollView：常用于大尺寸的图片或大区域无限制地显示内容。子类TableView常用于大量数据的排列展示，特别是需要一些对齐格式的内容。这两个类常用来完成游戏菜单表格视图。<br>　　♠ LayerColor：一个单纯的实心色块。子类LayerGradient可以设置两种颜色的渐变效果。<br>　　♠ Menu：菜单。</p>
+<h3 id="Layer-类的常用成员变量"><a href="#Layer-类的常用成员变量" class="headerlink" title="Layer 类的常用成员变量"></a>Layer 类的常用成员变量</h3><p>　　♦ bool _touchEnabled：是否支持触摸事件。<br>　　♦ bool _accelerometerEnabled：是否支持加速度计的事件。<br>　　♦ EventListener* _touchListener：触摸事件监听器。<br>　　♦ EventListenerAcceleration* _accelerationListener：加速度计的事件监听器。</p>
+<h3 id="Layer-类的常用函数"><a href="#Layer-类的常用函数" class="headerlink" title="Layer 类的常用函数"></a>Layer 类的常用函数</h3><p>　　♥ virtual bool onTouchBegan(Touch* touch, Event* unused_event)：处理用户触摸时的按下事件，若需要继续处理该按下对应的后续事件，则返回true，否则返回false。返回false则onTouchMoved等函数不会被调用到。<br>　　♥ virtual void onTouchMoved(Touch* touch, Event* unused_event)：处理用户触摸时移动的事件。<br>　　♥ virtual void onTouchEnded(Touch* touch, Event* unused_event)：处理用户触摸时松开的事件。<br>　　♥ virtual void onTouchCancelled(Touch* touch, Event* unused_event)：处理用户触摸时被打断的事件。<br>　　♥ virtual void onTouchesBegan(const std::vector&lt;Touch*&gt;&amp; touches, Event* unused_event)：处理用户的按下事件，多点触摸。<br>　　♥ virtual void onTouchesMoved(const std::vector&lt;Touch*&gt;&amp; touches, Event* unused_event)：处理用户的移动事件，多点触摸。<br>　　♥ virtual void onTouchesEnded(const std::vector&lt;Touch*&gt;&amp; touches, Event* unused_event)：处理用户的松开事件，多点触摸。<br>　　♥ virtual void onTouchesCancelled(const std::vector&lt;Touch*&gt;&amp; touches, Event* unused_event)：处理用户被打断的事件，多点触摸。</p>
+<hr>
+<h2 id="Director-导演类"><a href="#Director-导演类" class="headerlink" title="Director 导演类"></a>Director 导演类</h2><p>　　Director（导演类）是Cocos2d-x游戏引擎的核心，负责创建管理应用或者游戏的主窗口，并在特定的条件下执行某个场景。Cocos2d-x游戏是由不同的场景构成的，有Director负责运行和切换各个场景。在Cocos2d-x中，Director在任何一个时间点上只能运行一个场景。Director类是一个单例类，可以通过调用它的静态函数（getInstance()）来获取Director实例。<br>　　导演类的主要作用的如下：<br>　　♣ 初始化并设置OpenGL环境。<br>　　♣ 创建、访问和切换场景。<br>　　♣ 访问Cocos2d-x的配置细节。<br>　　♣ 访问视图（OpenGL ES、UIView和UIWindow）。<br>　　♣ 暂停、恢复和结束游戏。</p>
+<h3 id="Director-类的常用成员变量"><a href="#Director-类的常用成员变量" class="headerlink" title="Director 类的常用成员变量"></a>Director 类的常用成员变量</h3><p>　　♠ _runningScene：当前运行的场景，Director一次只能显示一个场景，变量类型为Scene。<br>　　♠ _animationInterval：游戏的FPS（帧每秒）值，变量类型为double。<br>　　♠ _openGLView：OpenGl视图，所有要进行视觉呈现的对象都会在该视图中渲染，变量类型为EGLView。<br>　　♠ _paused：Director是否被暂停，变量类型为bool。<br>　　♠ _totalFrames：自Director对象启动以来已调用帧的个数。<br>　　♠ _sendCleanupToScene：判断被替换的场景是否收到cleanup（清除）消息。如果新场景时弹出的，则原来的场景不会收到清除消息；如果新场景直接替换旧场景，则原来的场景会收到清除消息，变量类型为bool。</p>
+<h3 id="Director-类的常用函数"><a href="#Director-类的常用函数" class="headerlink" title="Director 类的常用函数"></a>Director 类的常用函数</h3><p>　　♥ static Director* getInstance()：返回一个导演类的单例实例。<br>　　　<code>auto director = Director::getInstance();</code><br>　　♥ const Size&amp; getWinSize() const：返回OpenGL ES的视图大小。<br>　　　<code>Size size = Director::getInstance()-&gt;getWinSize();</code><br>　　♥ Size getVisibleSize() const：返回可看见模拟器的OpenGL ES的视图尺寸大小，返回值类型为Size，如果没有调用EGLView::setDesignResolutionSize()函数的话，返回的值与getWinSize()函数一样。<br>　　　<code>Size visibleSize = Director::getInstance()-&gt;getVisibleSize();</code><br>　　♥ void runWithScene(Scene* scene)：进入导演的主循环并启动给定的场景，调用该函数运行第一个场景，运行游戏的第一个场景只能用这个函数，而且这个函数只能运行第一个场景，不能运行其他场景。<br>　　　<code>Director::getInstance()-&gt;runWithScene(scene);</code><br>　　♥ void pushScene(Scene* scene)：暂停当前运行的场景，并将其压栈到场景堆栈中，将新传入的场景设置为当前场景。<br>　　　<code>Director::getInstance()-&gt;pushScene(scene);</code><br>　　♥ void popScene()：从场景堆栈中弹出栈顶的场景作为当前场景。<br>　　　<code>Director::getInstance()-&gt;popScene();</code><br>　　♥ void popToRootScene()：从场景堆栈中弹出所有场景，直接返回运行主场景。<br>　　　<code>Director::getInstance()-&gt;popToRootScene();</code><br>　　♥ void replaceScene(Scene* scene)：直接使用传入的新场景替换当前场景，并释放当前场景。<br>　　　<code>Director::getInstance()-&gt;replaceScene(scene);</code><br>　　♥ void end()：结束当前运行中的场景，并释放该场景。<br>　　　<code>Director::getInstance()-&gt;end();</code><br>　　♥ void pause()：暂停当前运行中的场景，调用该函数后当前画面还会存在，但预定的更新方法会停止。<br>　　　<code>Director::getInstance()-&gt;pause();</code></p>
+<hr>
+<h2 id="Sprite-精灵类"><a href="#Sprite-精灵类" class="headerlink" title="Sprite 精灵类"></a>Sprite 精灵类</h2><p>　　精灵（Sprite）是游戏开发中的一个术语。精灵是一个图像，可以是任何一个游戏元素。一般情况下，精灵来自PNG或者PVRTC图像。当图像载入内存后，就会被转成纹理图像，在设备或模拟器的屏幕上被渲染。Sprite类继承自Node类，代表了游戏中最小的可见单位，由于精灵装载了一个平面纹理，具有丰富的表现力，而且可以通过多种方式加载，所以可以说精灵是游戏中最灵活的。</p>
+<h3 id="纹理的相关概念"><a href="#纹理的相关概念" class="headerlink" title="纹理的相关概念"></a>纹理的相关概念</h3><p>　　Cocos2d-x中几乎所有游戏角色都是以PNG或JPEG格式的图像存储在设备的内存中，这些图象一旦被加载入内存，它们将以一种未压缩的纹理格式来存储。推荐使用PNG格式的图像存储。在游戏运行中，所有的图像文件都会被加载为GPU可以解释的OpenGL ES纹理图像，而所有的精灵则对应着这些纹理图像。Cocos2d-x中内置了一个纹理缓存区（TextureCache）来保存这些纹理图，当创建多个相同的精灵对象时，系统会充分地利用已缓存的纹理图像，避免每次都去创建一个纹理图像，从而提高程序的运行效率。</p>
+<h4 id="纹理（Texture）"><a href="#纹理（Texture）" class="headerlink" title="纹理（Texture）"></a>纹理（Texture）</h4><p>　　可以认为纹理就是一张图片，这张图片被加载进内存，由精灵显示出来。更深层地讲，纹理是3D游戏中绘制到物体表面上的图案。图像文件在使用前必须转换成设备可以解释的格式，并加载到内存中。但是有一点需要注意，纹理的宽度与高度必须是2的n次方，如1024×512或128×64等。当图像不符合这个要求时，系统会自动调整纹理的尺寸，所以纹理会比原图像占用更多的内存。</p>
+<h4 id="纹理图集（TextureAtlas）"><a href="#纹理图集（TextureAtlas）" class="headerlink" title="纹理图集（TextureAtlas）"></a>纹理图集（TextureAtlas）</h4><p>　　因为纹理图的缘故，每次通过图片创建精灵都需要加载纹理图，为了提高程序的运行效率，通常会把这些纹理图拼合为一个纹理图，拼合后的纹理图称为纹理图集（TextureAtlas）。事实上，纹理图集就是一张尺寸为2的n次方的大图像而已，其中包含了许许多多的小图像。里面的每张小图像都有与之对应的一张小图像的矩形，Cocos2d-x可以从纹理图集中取出特定的某个图像进行渲染。纹理图集的信息通常保存在独立的.plist文件中。使用精灵表单类（SpriteBatchNode）可以将所有的图像一次性交给OpenGL ES来处理，这样比把单个图像逐个交给OpenGL ES来处理要高效得多。</p>
+<h4 id="纹理相关的类"><a href="#纹理相关的类" class="headerlink" title="纹理相关的类"></a>纹理相关的类</h4><p>　　♣ Texture2D（纹理）：从图片、文本或源数据中创建OpenGL 2D纹理图像，所创建的纹理图像使用2的n次方来填充。<br>　　♣ TextureCache（纹理缓存）：该类是单例类，用于加载和管理纹理图像。一旦纹理图像成功加载完成后，下次使用时可使用它返回之前加载的纹理图像，从而减少对GPU和CPU内存的占用，提高效率。<br>　　♣ TextureAtlas（纹理图集）：纹理图集文件可以是任何一种Texture2D（纹理）所支持的文件类型。并且可以对纹理图集的矩形进行实时的更新、添加、删除或重新排序操作。</p>
+<h3 id="Sprite-精灵类的常用成员变量"><a href="#Sprite-精灵类的常用成员变量" class="headerlink" title="Sprite 精灵类的常用成员变量"></a>Sprite 精灵类的常用成员变量</h3><p>　　Sprite类继承自Node类，除了从Node类继承的变量外，还有以下的成员变量：<br>　　♦ _textureAtlas：仅在该精灵使用SpriteBatchNode渲染时可用，类型为TextureAtlas，改变为TextureAtlas的引用<br>　　♦ _atlasIndex：精灵表单的索引，变量类型为int，不建议修改该值。<br>　　♦ _batchNode：对SpriteBatchNode的引用，变量类型为SpriteBatchNode。<br>　　♦ _dirty：精灵是否需要在纹理集中更新，变量类型为bool。<br>　　♦ _blendFunc：遵循TextureProtocol协议，变量类型为BlendFunc（纹理的混合使用）。<br>　　♦ _texture：Texture2D对象，用于获取或设置精灵所用的纹理。<br>　　♦ _rect：Texture2D对象的矩形，变量类型为Rect。<br>　　♦ _rectRotated：纹理矩形是否被旋转，变量类型为bool。<br>　　♦ _offsetPosition：以点值计量的精灵位置的偏移，变量类型为Point。<br>　　♦ _quad：顶点坐标、纹理坐标和颜色信息，变量类型为V3F_C4B_T2F_Quad。<br>　　♦ _flippedX：精灵是否沿着水平方向翻转，变量类型为bool。<br>　　♦ _flippedY：精灵是否沿着垂直方向翻转，变量类型为bool。</p>
+<h3 id="Sprite-精灵类常用的函数"><a href="#Sprite-精灵类常用的函数" class="headerlink" title="Sprite 精灵类常用的函数"></a>Sprite 精灵类常用的函数</h3><p>　　除了从Node类继承的函数外，还有以下常用函数：<br>　　♠ static Sprite* create()：静态函数，创建一个空的精灵对象，之后可以调用setTexture函数设置纹理图像。<br>　　♠ static Sprite* create(const std::string&amp; filename)：静态函数，根据一个图像文件名称创建一个精灵。<br>　　♠ static Sprite* create(const std::string&amp; filename, const Rect&amp; rect)：静态函数，根据图像文件名创建一个矩形为rect的精灵。<br>　　♠ static Sprite* createWithTexture(Texture2D *texture)：静态函数，使用纹理图像创建一个精灵，默认位置偏移为(0,0)。<br>　　♠ static Sprite* createWithTexture(Texture2D *texture, const Rect&amp; rect, bool rotated=false)：静态函数，使用纹理图像创建一个矩形为rect的精灵，位置偏移为(0,0)。<br>　　♠ static Sprite* createWithSpriteFrame(SpriteFrame *pSpriteFrame)：静态函数，使用精灵帧创建一个精灵。<br>　　♠ static Sprite* createWithSpriteFrameName(const std::string&amp; spriteFrameName)：静态函数，使用精灵帧的名称创建一个精灵。该函数在使用时，将从SpriteFrameCache中获取SpriteFrame，如果精灵帧缓存中不存在该精灵帧，系统将抛出一个异常。<br>　　♠ virtual bool initWithTexture(Texture2D *texture)：使用纹理图像初始化一个精灵，默认偏移位置为(0,0)，初始化成功返回true，否则返回false。<br>　　♠ virtual bool initWithTexture(Texture2D *texture, const Rect&amp; rect)：使用纹理图像初始化一个矩形为rect的精灵，位置偏移是(0,0)，初始化成功返回true，否则返回false。<br>　　♠ virtual bool initWithTexture(Texture2D *texture, const Rect&amp; rect, bool rotated)：使用纹理图像初始化一个矩形为rect的精灵，可选择是否旋转，位置偏移是(0,0)，初始化成功返回true，否则返回false。<br>　　♠ virtual bool initWithSpriteFrame(SpriteFrame *pSpriteFrame)：使用精灵帧初始化一个精灵，初始化成功返回true，否则返回false。<br>　　♠ virtual bool initWithSpriteFrameName(const std::string&amp; spriteFrameName)：使用精灵帧的名称初始化一个精灵，初始化成功返回true，否则返回false。<br>　　♠ virtual bool initWithFile(const std::string&amp; filename)：根据一个图像文件名称初始化一个精灵，初始化成功返回true，否则返回false。<br>　　♠ virtual bool initWithFile(const std::string&amp; filename, const Rect&amp; rect)：根据一个图像文件名称初始化一个矩形为rect的精灵，初始化成功返回true，否则返回false。<br>　　♠ virtual void updateTransform(void)：根据旋转角度、位置和比例值更新精灵所在的矩形。<br>　　♠ virtual SpriteBatchNode* getBatchNode(void)：返回精灵表单对象。<br>　　♠ virtual void setBatchNode(SpriteBatchNode *spriteBatchNode)：设置精灵表单对象。<br>　　♠ virtual void setTextureRect(const Rect&amp; rect)：设置纹理图像的矩形大小。<br>　　♠ virtual void setSpriteFrame(SpriteFrame *newFrame)：为Sprite设置新的显示帧。<br>　　♠ virtual SpriteFrame* getSpriteFrame() const：返回当前精灵显示帧。<br>　　♠ virtual void setDisplayFrameWithAnimationName(const std::string&amp; animationName, int frameIndex)：根据动画名称和索引更改要显示的帧，动画名将从AnimationCache中获取。<br>　　♠ bool isFlippedX(void) const：精灵是否沿水平方向翻转。<br>　　♠ void setFlippedX(bool flippedX)：设置精灵是否沿水平方向翻转。<br>　　♠ bool isFlippedY(void) const：精灵是否沿垂直方向翻转。<br>　　♠ void setFlippedY(bool flippedY)：设置精灵是否沿垂直方向翻转。</p>
+<h3 id="SpriteFrame-精灵帧类"><a href="#SpriteFrame-精灵帧类" class="headerlink" title="SpriteFrame 精灵帧类"></a>SpriteFrame 精灵帧类</h3><p>　　SpriteFrame（精灵帧）是相对于动画动作而产生的概念。一个精灵是固定的节点，它可以拥有许多精灵帧，通过快速地更换精灵帧来实现动态效果。与之前介绍的节点类不同，SpriteFrame类不是继承自Node类，而是直接继承自Ref类，Node类继承自Ref类。SpriteFrame用来表示一个精灵，包括Texture2D纹理和矩形大小。</p>
+<p>　　SpriteFrame的常用成员变量如下：<br>　　♥ _rect 和 _rectInPixels：表示精灵帧的矩形大小，分别用point（点）值和pixels（像素）值来表示，变量类型为Rect。它们是彼此相连的，任一成员发生变化都会自动更新另一个成员。<br>　　♥ _offset 和 _offsetInPixels：精灵帧的位置偏移，分别用point（点）值和pixels（像素）值来计算，变量类型为Point。<br>　　♥ _originalSize 和 _originalSizeInPixels：修剪后图片的原始大小，分别用point（点）值和pixels（像素）值来计算，变量类型为Size。<br>　　♥ _texture：精灵帧的纹理，变量类型为Texture2D。<br>　　♥ _textureFilename：精灵帧的纹理文件名称，变量类型为std::string。</p>
+<p>　　SpriteFrame的常用函数如下：<br>　　♣ static SpriteFrame* create(const std::string&amp; filename, const Rect&amp; rect)：使用纹理图名称和矩形（以点值表示）创建一个SpriteFrame。<br>　　♣ static SpriteFrame* create(const std::string&amp; filename, const Rect&amp; rect, bool rotated, const Point&amp; offset, const Size&amp; originalSize)：使用纹理图名称、矩形（以像素值表示）、是否旋转、位置偏移和原始大小等创建一个SpriteFrame。<br>　　♣ static SpriteFrame* createWithTexture(Texture2D* pobTexture, const Rect&amp; rect)：使用纹理图和矩形（以点值表示）创建一个SpriteFrame。<br>　　♣ static SpriteFrame* createWithTexture(Texture2D* pobTexture, const Rect&amp; rect, bool rotated, const Point&amp; offset, const Size&amp; originalSize)：使用纹理图、矩形（以像素值表示）、是否旋转、位置偏移和原始大小等创建一个SpriteFrame。</p>
+<h3 id="SpriteFrameCache-精灵帧缓存类"><a href="#SpriteFrameCache-精灵帧缓存类" class="headerlink" title="SpriteFrameCache 精灵帧缓存类"></a>SpriteFrameCache 精灵帧缓存类</h3><p>　　SpriteFrameCache（精灵帧缓存类）直接继承自Ref类，是一个单例类，所有精灵可以共享，它的主要作用是存储精灵帧来提高程序的运行效率。它没有提供特别的成员变量，而是提供了一系列用于管理SpriteFrame的函数，常用函数如下：<br>　　♦ static SpriteFrameCache* getInstance(void)：获取精灵帧缓存类的单例对象。<br>　　<code>auto frameCache = SpriteFrameCache::getInstance();</code><br>　　♦ static void destroyInstance()：清除SpriteFrameCache中的缓存，删除所有精灵帧，并释放所保留的变量。<br>　　<code>SpriteFrameCache::destroyInstance();</code><br>　　♦ void addSpriteFramesWithFile(const std::string&amp; plist)：从plist属性文件中添加多个精灵帧。纹理将会被自动载入，纹理的扩展名使用.png替换.plist。<br>　　<code>SpriteFrameCache::getInstance()-&gt;addSpriteFramesWithFile(&quot;resource.plist&quot;);</code><br>　　♦ void removeSpriteFrames()：清除已加载的精灵帧的词典。<br>　　<code>SpriteFrameCache::getInstance()-&gt;removeSpriteFrames();</code><br>　　♦ void removeSpriteFrameByName(const std::string&amp; name)：根据名称从精灵帧缓存中删除一个精灵。<br>　　<code>SpriteFrameCache::getInstance()-&gt;removeSpriteFrameByName(&quot;player.png&quot;);</code><br>　　♦ void removeUnusedSpriteFrames(void)：删除所有未使用的精灵帧，所有retain计数为1的精灵帧都会被删除。当游戏切换新场景时可以调用此方法。<br>　　<code>SpriteFrameCache::getInstance()-&gt;removeUnusedSpriteFrames();</code><br>　　♦ void removeSpriteFramesFromFile(const std::string&amp; plist)：从plist属性文件中删除多个精灵帧。存储在该plist文件中的精灵帧都会被删除。<br>　　<code>SpriteFrameCache::getInstance()-&gt;removeSpriteFramesFromFile(&quot;resource.plist&quot;);</code></p>
+<p>　　各位童鞋可以在cocos2d-x的解压文件加下查找相关源码阅读，也可查看<a href="http://www.cocos.com/doc/" target="_blank" rel="external">Cocos2d-x官方文档</a>与<a href="http://api.cocos.com/cn/" target="_blank" rel="external">Cocos2d-x API</a>。</p>
+<hr>
+<p><strong><em>版权声明：本文为船长原创文章，未经船长允许不得转载。</em></strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励船长继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.png" alt="An_coder WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.png" alt="An_coder Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/04/Cocos2d-x-one-1/" rel="next" title="Cocos2d-x的Node与Scene的概述">
+                <i class="fa fa-chevron-left"></i> Cocos2d-x的Node与Scene的概述
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/11/Cocos2d-x-one-2/"
+           data-title="Cocos2d-x的Layer、Director与Sprite的概述" data-url="http://www.an-coder.com/2016/07/11/Cocos2d-x-one-2/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            船长概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="An_coder" />
+          <p class="site-author-name" itemprop="name">An_coder</p>
+          <p class="site-description motion-element" itemprop="description">爱生活的程序猿</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">2</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/An007coder" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5634763996" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Layer-层类"><span class="nav-number">1.</span> <span class="nav-text">Layer 层类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Layer-类的常用成员变量"><span class="nav-number">1.1.</span> <span class="nav-text">Layer 类的常用成员变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Layer-类的常用函数"><span class="nav-number">1.2.</span> <span class="nav-text">Layer 类的常用函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Director-导演类"><span class="nav-number">2.</span> <span class="nav-text">Director 导演类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Director-类的常用成员变量"><span class="nav-number">2.1.</span> <span class="nav-text">Director 类的常用成员变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Director-类的常用函数"><span class="nav-number">2.2.</span> <span class="nav-text">Director 类的常用函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sprite-精灵类"><span class="nav-number">3.</span> <span class="nav-text">Sprite 精灵类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#纹理的相关概念"><span class="nav-number">3.1.</span> <span class="nav-text">纹理的相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#纹理（Texture）"><span class="nav-number">3.1.1.</span> <span class="nav-text">纹理（Texture）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#纹理图集（TextureAtlas）"><span class="nav-number">3.1.2.</span> <span class="nav-text">纹理图集（TextureAtlas）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#纹理相关的类"><span class="nav-number">3.1.3.</span> <span class="nav-text">纹理相关的类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sprite-精灵类的常用成员变量"><span class="nav-number">3.2.</span> <span class="nav-text">Sprite 精灵类的常用成员变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sprite-精灵类常用的函数"><span class="nav-number">3.3.</span> <span class="nav-text">Sprite 精灵类常用的函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpriteFrame-精灵帧类"><span class="nav-number">3.4.</span> <span class="nav-text">SpriteFrame 精灵帧类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SpriteFrameCache-精灵帧缓存类"><span class="nav-number">3.5.</span> <span class="nav-text">SpriteFrameCache 精灵帧缓存类</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<div class="copyright" align="center" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">An_coder</span>
+</div>
+
+<div align="center">
+	<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+	</span>
+	<span class="with-love">
+    <i class="fa fa-heart"></i>
+  	</span>
+	<span id="busuanzi_container_site_uv">
+  	本站访客数<span id="busuanzi_value_site_uv"></span>人次
+	</span>
+</div>
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"an-coder"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+
+  
+  
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

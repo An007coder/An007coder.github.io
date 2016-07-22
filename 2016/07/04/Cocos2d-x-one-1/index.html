@@ -84,20 +84,23 @@
 
 <meta name="description" content="目前大多数游戏公司用的开发引擎是Cocos2d-x和Unity3D。本系列为Cocos2d-x，后期将Cocos2d-x系列写完也会写一个Unity3D的系列教程。下面正式进入Cocos2d-x系列教程。
 本博文主要内容　　★ Node 节点类的功能与用法　　★ Scene 场景类的功能与用法
-Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承自Ref类。　　注：Co">
+
+Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承自Ref类。　　注：C">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cocos2d-x基础知识系列教程【一】《Node与Scene的概述》">
+<meta property="og:title" content="Cocos2d-x的Node与Scene的概述">
 <meta property="og:url" content="http://www.an-coder.com/2016/07/04/Cocos2d-x-one-1/index.html">
 <meta property="og:site_name" content="An_coder">
 <meta property="og:description" content="目前大多数游戏公司用的开发引擎是Cocos2d-x和Unity3D。本系列为Cocos2d-x，后期将Cocos2d-x系列写完也会写一个Unity3D的系列教程。下面正式进入Cocos2d-x系列教程。
 本博文主要内容　　★ Node 节点类的功能与用法　　★ Scene 场景类的功能与用法
-Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承自Ref类。　　注：Co">
-<meta property="og:updated_time" content="2016-07-17T03:22:23.638Z">
+
+Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承自Ref类。　　注：C">
+<meta property="og:updated_time" content="2016-07-22T13:56:46.792Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Cocos2d-x基础知识系列教程【一】《Node与Scene的概述》">
+<meta name="twitter:title" content="Cocos2d-x的Node与Scene的概述">
 <meta name="twitter:description" content="目前大多数游戏公司用的开发引擎是Cocos2d-x和Unity3D。本系列为Cocos2d-x，后期将Cocos2d-x系列写完也会写一个Unity3D的系列教程。下面正式进入Cocos2d-x系列教程。
 本博文主要内容　　★ Node 节点类的功能与用法　　★ Scene 场景类的功能与用法
-Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承自Ref类。　　注：Co">
+
+Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承自Ref类。　　注：C">
 
 
 
@@ -115,7 +118,7 @@ Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承�
   };
 </script>
 
-  <title> Cocos2d-x基础知识系列教程【一】《Node与Scene的概述》 | An_coder </title>
+  <title> Cocos2d-x的Node与Scene的概述 | An_coder </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -203,7 +206,7 @@ Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承�
         <li class="menu-item menu-item-guestbook">
           <a href="/guestbook" rel="section">
             
-            留言
+            留言板
           </a>
         </li>
       
@@ -245,7 +248,7 @@ Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承�
             
             
               
-                Cocos2d-x基础知识系列教程【一】《Node与Scene的概述》
+                Cocos2d-x的Node与Scene的概述
               
             
           </h1>
@@ -271,8 +274,8 @@ Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承�
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Cocos2d-x/" itemprop="url" rel="index">
-                    <span itemprop="name">Cocos2d-x</span>
+                  <a href="/categories/Cocos2d-x基础知识系列/" itemprop="url" rel="index">
+                    <span itemprop="name">Cocos2d-x基础知识系列</span>
                   </a>
                 </span>
 
@@ -320,6 +323,7 @@ Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承�
       
         <p>　　目前大多数游戏公司用的开发引擎是Cocos2d-x和Unity3D。本系列为Cocos2d-x，后期将Cocos2d-x系列写完也会写一个Unity3D的系列教程。下面正式进入Cocos2d-x系列教程。</p>
 <h2 id="本博文主要内容"><a href="#本博文主要内容" class="headerlink" title="本博文主要内容"></a>本博文主要内容</h2><p>　　★ Node 节点类的功能与用法<br>　　★ Scene 场景类的功能与用法</p>
+<hr>
 <h2 id="Node-节点类"><a href="#Node-节点类" class="headerlink" title="Node 节点类"></a>Node 节点类</h2><p>　　节点类（Node）是Cocos2d-x中最重要的类，继承自Ref类。<br>　　<strong><em>注：</em></strong>Cocos2d-x 3.0之前，大部分类都继承Object类，在3.0之后将Object类重命名为Ref类。</p>
 <p>　　Cocos2d-x中所有需要绘制到屏幕的对象，或是自身包含要绘制到屏幕中的对象，都是继承自Node类，最常用的节点类包括场景（Scene）、层（Layer）、精灵（Sprite）等等，每一个节点只有一个父节点，但是可有由无数个子节点。</p>
 <p>　　一个节点的主要功能是：<br>　　★可以包含其他节点<br>　　★可以通过定时器预定消息和使用回调函数<br>　　★可以执行动作</p>
@@ -355,7 +359,8 @@ Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承�
 <h2 id="Scene-场景类"><a href="#Scene-场景类" class="headerlink" title="Scene 场景类"></a>Scene 场景类</h2><p>　　Scene类是继承Node类的，但只是简单的继承，并没有提供特别的功能。场景只是层的容器，包含了所有需要显示的游戏元素。除了作为层的容器，场景还起到了流程控制的作用，使用<code>Director::getInstance()-&gt;replaceScene(newScene);</code>等函数可以使游戏在不同的场景切换。<br>　　根据游戏的内容，可以将场景分为三大类：<br>　　★ 展示类场景：播放视频或输出文字，用来显示游戏的介绍、提示和帮助界面。<br>　　★ 选项类场景：游戏主菜单、设置参数等。<br>　　★ 游戏内容场景：显示游戏中的内容。<br>　　目前，Scene类基本上没有附加任何其他的逻辑，它的功能通常是根据像素坐标把元素放置在场景中的相应位置。因为Director（导演）类只能操作Scene类，所以实际开发中通常都是将Scene作为其他所有节点的父节点，看作Layer（层）对象的一个容器。而Scene的子节点通常都是继承直接继承Layer类，Layer包含各个游戏对象。因为大多数情况下场景对象本身不包含任何游戏相关的代码，而且很少被子类化，因此它一般在Layer对象里通过create静态函数来创建。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Scene* HelloWorld::createScene()</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">auto</span> scene = Scene::create();		<span class="comment">//创建一个Scene</span></span><br><span class="line">  <span class="keyword">auto</span> layer = HelloWorld::create();	<span class="comment">//HelloWorld类继承Layer类，因此创建一个HelloWorld类的layer</span></span><br><span class="line">  scene-&gt;addChild(layer);		<span class="comment">//将layer节点添加到scene节点上，scene为父节点，layer为scene的子节点</span></span><br><span class="line">  <span class="keyword">return</span> scene;				<span class="comment">//因为HelloWorld类的createScene()函数是一个返回Scene的函数，所以这里要返回scene</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>　　此外，如果要实现各种动画效果的场景切换，必须基于Scene场景进行切换。</p>
 <h3 id="TransitionScene-场景切换"><a href="#TransitionScene-场景切换" class="headerlink" title="TransitionScene 场景切换"></a>TransitionScene 场景切换</h3><p>　　在游戏中经常需要切换场景，在切换的时候需要一定的过渡效果，否则，场景的切换就会显得十分突兀。为此，Cocos2d-x提供了很多华丽的场景切换特效，例如淡入淡出、翻页、旋转等等，这些特效是通过TransitionScene系统特效类来实现的。<br>　　TransitionScene继承自Scene，而所有实现场景过渡效果的类都继承自TransitionScene。TransitionScene的主要函数如下：<br>　　★ void finish()：该函数在过渡效果完成后调用。<br>　　★ void hideOutShowIn()：部分过渡效果会使用该函数来隐藏更外面的场景。<br>　　★ bool initWithDuration(float time, Scene* scene)：该函数初始化一个场景过渡效果，参数为过渡时间和即将过渡到的场景。</p>
-<h3 id="Cocos2d-x-支持的场景过渡效果"><a href="#Cocos2d-x-支持的场景过渡效果" class="headerlink" title="Cocos2d-x 支持的场景过渡效果"></a>Cocos2d-x 支持的场景过渡效果</h3><p>　　Cocos2d-x 支持多种场景过渡效果，所有实现场景过渡效果的类都继承自TransitionScene，它们的create方法都有两个参数：第一个参数是场景过渡特效所用的时间；第二个参数是即将进入的场景。以下是部分过渡效果类及其描述：<br>　　★ TransitionRotoZoom：当前场景旋转变小，新场景旋转变大，实现转角切换效果。<br>　　★ TransitionJumpZoom：跳跃式，当前场景跳跃变小，新场景跳跃变大。<br>　　★ TransitionMoveInL：新场景从屏幕的左侧移入。<br>　　★ TransitionSlideInL：新场景从左侧滑入屏幕。<br>　　★ TransitionShrinkGrow：当前场景缩小，新场景在其之上变大，实现交错切换效果。<br>　　★ TransitionFlipX：水平翻转场景。<br>　　★ TransitionFlipAngular：一半水平翻转，一半垂直翻转场景。<br>　　★ TransitionZoomFlipX：水平翻转场景，同时有一定缩放效果。<br>　　★ TransitionZoomFlipAngular：一半水平、一半垂直翻转场景，同时有一定缩放效果。<br>　　★ TransitionFade：淡入淡出，原场景淡出，新场景淡入。<br>　　★ TransitionCrossFade：交叉淡入淡出效果。<br>　　★ TransitionTurnOffTiles：将当前场景随机分成方块，用分成方块的新场景随机地替换分成方块的旧场景。<br>　　★ <strong>……</strong><br>　　各位童鞋可以在cocos2d-x的解压文件加下查找相关源码阅读，也可查看<a href="http://www.cocos.com/doc/" target="_blank" rel="external">Cocos2d-x官方文档</a>与<a href="http://api.cocos.com/cn/" target="_blank" rel="external">Cocos2d-x API</a>。</p>
+<h3 id="Cocos2d-x-支持的场景过渡效果"><a href="#Cocos2d-x-支持的场景过渡效果" class="headerlink" title="Cocos2d-x 支持的场景过渡效果"></a>Cocos2d-x 支持的场景过渡效果</h3><p>　　Cocos2d-x 支持多种场景过渡效果，所有实现场景过渡效果的类都继承自TransitionScene，它们的create方法都有两个参数：第一个参数是场景过渡特效所用的时间；第二个参数是即将进入的场景。以下是部分过渡效果类及其描述：<br>　　★ TransitionRotoZoom：当前场景旋转变小，新场景旋转变大，实现转角切换效果。<br>　　★ TransitionJumpZoom：跳跃式，当前场景跳跃变小，新场景跳跃变大。<br>　　★ TransitionMoveInL：新场景从屏幕的左侧移入。<br>　　★ TransitionSlideInL：新场景从左侧滑入屏幕。<br>　　★ TransitionShrinkGrow：当前场景缩小，新场景在其之上变大，实现交错切换效果。<br>　　★ TransitionFlipX：水平翻转场景。<br>　　★ TransitionFlipAngular：一半水平翻转，一半垂直翻转场景。<br>　　★ TransitionZoomFlipX：水平翻转场景，同时有一定缩放效果。<br>　　★ TransitionZoomFlipAngular：一半水平、一半垂直翻转场景，同时有一定缩放效果。<br>　　★ TransitionFade：淡入淡出，原场景淡出，新场景淡入。<br>　　★ TransitionCrossFade：交叉淡入淡出效果。<br>　　★ TransitionTurnOffTiles：将当前场景随机分成方块，用分成方块的新场景随机地替换分成方块的旧场景。<br>　　★ <strong>……</strong></p>
+<p>　　各位童鞋可以在cocos2d-x的解压文件加下查找相关源码阅读，也可查看<a href="http://www.cocos.com/doc/" target="_blank" rel="external">Cocos2d-x官方文档</a>与<a href="http://api.cocos.com/cn/" target="_blank" rel="external">Cocos2d-x API</a>。</p>
 <hr>
 <p><strong><em>版权声明：本文为船长原创文章，未经船长允许不得转载。</em></strong></p>
 
@@ -372,7 +377,7 @@ Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承�
       
         
   <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <div>坚持原创技术分享，您的支持将鼓励船长继续创作！</div>
     <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
       <span>赏</span>
     </button>
@@ -399,6 +404,20 @@ Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承�
     <footer class="post-footer">
       
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/11/Cocos2d-x-one-2/" rel="prev" title="Cocos2d-x的Layer、Director与Sprite的概述">
+                Cocos2d-x的Layer、Director与Sprite的概述 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
@@ -445,7 +464,7 @@ Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承�
   <div class="comments" id="comments">
     
       <div class="ds-thread" data-thread-key="2016/07/04/Cocos2d-x-one-1/"
-           data-title="Cocos2d-x基础知识系列教程【一】《Node与Scene的概述》" data-url="http://www.an-coder.com/2016/07/04/Cocos2d-x-one-1/">
+           data-title="Cocos2d-x的Node与Scene的概述" data-url="http://www.an-coder.com/2016/07/04/Cocos2d-x-one-1/">
       </div>
     
   </div>
@@ -490,7 +509,7 @@ Node 节点类　　节点类（Node）是Cocos2d-x中最重要的类，继承�
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">1</span>
+              <span class="site-state-item-count">2</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
