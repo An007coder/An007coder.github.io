@@ -1,0 +1,722 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前几篇博文主要概述了Cocos2d-x中需要知道的基本概念及其使用方法等等，船长将通过这篇博文与大家一起创建第一个Cocos2d-x项目，当然这个项目毫无疑问就是HelloWorld。船长不仅仅只是创建第一个Cocos2d-x的项目，而且还会简单的分析一下项目结构啥的。下面就让我们开始创建第一个项目吧！
+创建HelloWorld项目　　在创建HelloWorld项目之前，你一定要确保已经配置好">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一个Cocos2d-x项目之HelloWorld详解">
+<meta property="og:url" content="http://www.an-coder.com/2016/07/24/Cocos2d-x-two-1/index.html">
+<meta property="og:site_name" content="An_coder">
+<meta property="og:description" content="前几篇博文主要概述了Cocos2d-x中需要知道的基本概念及其使用方法等等，船长将通过这篇博文与大家一起创建第一个Cocos2d-x项目，当然这个项目毫无疑问就是HelloWorld。船长不仅仅只是创建第一个Cocos2d-x的项目，而且还会简单的分析一下项目结构啥的。下面就让我们开始创建第一个项目吧！
+创建HelloWorld项目　　在创建HelloWorld项目之前，你一定要确保已经配置好">
+<meta property="og:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-1-1.png-imageStyle">
+<meta property="og:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-1-2.png-imageStyle">
+<meta property="og:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-1-3.png-imageStyle">
+<meta property="og:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-1-4.png-imageStyle">
+<meta property="og:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-1-5.png-imageStyle">
+<meta property="og:updated_time" content="2016-08-04T09:06:35.148Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第一个Cocos2d-x项目之HelloWorld详解">
+<meta name="twitter:description" content="前几篇博文主要概述了Cocos2d-x中需要知道的基本概念及其使用方法等等，船长将通过这篇博文与大家一起创建第一个Cocos2d-x项目，当然这个项目毫无疑问就是HelloWorld。船长不仅仅只是创建第一个Cocos2d-x的项目，而且还会简单的分析一下项目结构啥的。下面就让我们开始创建第一个项目吧！
+创建HelloWorld项目　　在创建HelloWorld项目之前，你一定要确保已经配置好">
+<meta name="twitter:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-1-1.png-imageStyle">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6289997537579369000,
+      author: '船长大人'
+    }
+  };
+</script>
+
+  <title> 第一个Cocos2d-x项目之HelloWorld详解 | An_coder </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">An_coder</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于船长
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+            留言板
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                第一个Cocos2d-x项目之HelloWorld详解
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-24T21:05:46+08:00" content="2016-07-24">
+              2016-07-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Cocos2d-x基础知识系列/" itemprop="url" rel="index">
+                    <span itemprop="name">Cocos2d-x基础知识系列</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/24/Cocos2d-x-two-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/24/Cocos2d-x-two-1/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+          	<span id="busuanzi_container_page_pv">  |  阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　前几篇博文主要概述了Cocos2d-x中需要知道的基本概念及其使用方法等等，船长将通过这篇博文与大家一起创建第一个Cocos2d-x项目，当然这个项目毫无疑问就是HelloWorld。船长不仅仅只是创建第一个Cocos2d-x的项目，而且还会简单的分析一下项目结构啥的。下面就让我们开始创建第一个项目吧！</p>
+<h2 id="创建HelloWorld项目"><a href="#创建HelloWorld项目" class="headerlink" title="创建HelloWorld项目"></a>创建HelloWorld项目</h2><p>　　在创建HelloWorld项目之前，你一定要确保已经配置好了环境变量，至于环境变量怎么配置请自行百度或Google，如果还是不明白可以评论问船长，也可以在留言板中留言。</p>
+<h3 id="命令行创建"><a href="#命令行创建" class="headerlink" title="命令行创建"></a>命令行创建</h3><p>　　在命令窗口中输入命令行：<br>　　<code>cocos new Name -p PackName -l LanguageName -d D:\cocos2d-x\project</code><br>　　后回车就ok了，命令窗口（Dos窗口）进入方法：按Windows+R组合键输入cmd回车等。<br>　　命令行中Name为新建项目的名字，PackName为包名，LanguageName为新建项目的编程语言，-d后面为新建项目放置的位置。<strong>注意：包名为三级的，例如as.fad.fdew等，也就是说要有三个字段两个点。</strong>每一款游戏或应用都是通过包名来区分的，例如你的手机里已经安装了一款包名为com.youxi.www的游戏或应用A，你又下载了另外一款游戏或应用B且包名也为com.youxi.www，当你安装B时就会替换掉A。LanguageName之前是-l（小写的L），因为目前Cocos2d-x引擎支持新建C++和Lua的项目，所以这里的语言可以为cpp或lua。</p>
+<h3 id="脚本创建"><a href="#脚本创建" class="headerlink" title="脚本创建"></a>脚本创建</h3><p>　　我们在Cocos2d-x的工程里新建一个文本文件，并将名字改为CreateProject，<strong>将后缀名.txt改为.bat</strong>。然后右击此文件选择编辑，编辑内容如下图：<img src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-1-1.png-imageStyle" alt="Cocos2d-x-two-1-1.png"><br>　　编辑完后保存退出，以后每次要创建项目的时候就可以双击该文件输入对应的参数即可，项目创建完成后Dos窗口会自动退出，示例图如下：<img src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-1-2.png-imageStyle" alt="Cocos2d-x-two-1-2.png"></p>
+<hr>
+<h2 id="项目结构分析"><a href="#项目结构分析" class="headerlink" title="项目结构分析"></a>项目结构分析</h2><p>　　创建了一个项目之后，我们要知道这个项目的文件结构是啥样的，每个文件是干啥的，以及该项目的工作流程代码控制是怎样的，下面就由船长给大家简单地讲讲。</p>
+<h3 id="项目的文件结构"><a href="#项目的文件结构" class="headerlink" title="项目的文件结构"></a>项目的文件结构</h3><p>　　打开你新建的项目文件夹，你可以看到如下图所示的文件结构：<img src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-1-3.png-imageStyle" alt="Cocos2d-x-two-1-3.png"><br>　　♠ Classes是项目的源文件存放位置，各种类与头文件。<br>　　♠ cocos2d是Cocos2d-x的各种库。<br>　　♠ proj.android是项目的安卓版，在项目打包成安卓安装包apk时用到。<br>　　♠ proj.ios_mac是项目的苹果版，使用mac本的同学利用XCode打开此文件夹中的xxx.Xcodeproj文件（xxx为项目名）既可以编辑这个项目，打包成苹果系统的包也是利用这个文件夹。<br>　　♠ proj.linux是项目的Linux版。<br>　　♠ proj.win8.1-universal应该是项目的win8.1系统版，到目前为止船长还没用过这个文件夹的文件，所以只是猜测，大家可以忽略。<br>　　♠ proj.win32是项目的windows系统版，使用windows系统的同学利用VS打开此文件夹中的xxx.sln文件（xxx为项目名）既可以编辑这个项目。<br>　　♠ proj.wp8-xaml应该是项目的WindowsPhone版，这个文件也只是猜测，大家可以忽略。<br>　　♠ Resources是项目的资源文件夹，项目的所有资源都放在此文件夹中。</p>
+<h3 id="项目的代码结构"><a href="#项目的代码结构" class="headerlink" title="项目的代码结构"></a>项目的代码结构</h3><p>　　打开项目进入编辑状态，打开方法上面已经写啦，打开之后，如果你使用的系统是Windows的，那么你将看到如下图的界面：<img src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-1-4.png-imageStyle" alt="Cocos2d-x-two-1-4.png"><br>　　大家都知道任何一个程序都是从main开始的，Cocos2d-x的项目也是一样，现在我们就来看看main.cpp文件代码：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/********main.cpp********/</span></span><br><span class="line"><span class="comment">// create the application instance</span></span><br><span class="line"><span class="comment">//创建一个AppDelegate对象</span></span><br><span class="line">AppDelegate app;</span><br><span class="line"><span class="comment">//运行此游戏</span></span><br><span class="line"><span class="keyword">return</span> Application::getInstance()-&gt;run();</span><br></pre></td></tr></table></figure></p>
+<p>　　接下来程序执行到AppDelegate.cpp文件中，代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/********AppDelegate.cpp********/</span></span><br><span class="line"><span class="comment">//包含头文件</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="string">"AppDelegate.h"</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="string">"HelloWorldScene.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//宏定义using namespace cocos2d，表示使用cocos2d的命名空间</span></span><br><span class="line">USING_NS_CC;</span><br><span class="line"></span><br><span class="line"><span class="comment">//构造函数</span></span><br><span class="line">AppDelegate::AppDelegate() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//析构函数</span></span><br><span class="line">AppDelegate::~AppDelegate() </span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//if you want a different context,just modify the value of glContextAttrs</span></span><br><span class="line"><span class="comment">//it will takes effect on all platforms</span></span><br><span class="line"><span class="keyword">void</span> AppDelegate::initGLContextAttrs()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//set OpenGL context attributions,now can only set six attributions:</span></span><br><span class="line">    <span class="comment">//red,green,blue,alpha,depth,stencil</span></span><br><span class="line">    GLContextAttrs glContextAttrs = &#123;<span class="number">8</span>, <span class="number">8</span>, <span class="number">8</span>, <span class="number">8</span>, <span class="number">24</span>, <span class="number">8</span>&#125;;</span><br><span class="line"></span><br><span class="line">    GLView::setGLContextAttrs(glContextAttrs);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">*此函数在main.cpp中的Application::getInstance()-&gt;run();语句被调用</span><br><span class="line">*run()函数做了些模拟器的相关设置以及导演的设置</span><br><span class="line">*有兴趣的同学可以自己根据函数跳转过去看看</span><br><span class="line">*/</span></span><br><span class="line"><span class="keyword">bool</span> AppDelegate::applicationDidFinishLaunching() &#123;</span><br><span class="line">    <span class="comment">//获得导演单例对象</span></span><br><span class="line">    <span class="keyword">auto</span> director = Director::getInstance();</span><br><span class="line">    <span class="comment">//利用导演获得OpenGLView</span></span><br><span class="line">    <span class="keyword">auto</span> glview = director-&gt;getOpenGLView();</span><br><span class="line">    <span class="comment">//如果获得的OpenGlView不为空，即得到了OpenGlView对象，就执行if里面的语句，否则不执行</span></span><br><span class="line">    <span class="keyword">if</span>(!glview) &#123;</span><br><span class="line">        <span class="comment">//设置模拟器的名字为“HelloWorld”，名字可以自由设置，名字显示在模拟器的标题栏（左上角）</span></span><br><span class="line">        glview = GLViewImpl::create(<span class="string">"HelloWorld"</span>);</span><br><span class="line">        <span class="comment">//给导演设置一个OpenGLView</span></span><br><span class="line">        director-&gt;setOpenGLView(glview);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//开启FPS，即模拟器左下角的调试信息，传入参数为false则表示关闭FPS</span></span><br><span class="line">    director-&gt;setDisplayStats(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span><br><span class="line">    *设置FPS，即设置整个游戏过程中的帧率</span><br><span class="line">    *参数1.0/60表示一秒六十帧</span><br><span class="line">    *如果你要设置一秒刷新80帧，传入参数为1.0/80</span><br><span class="line">    */</span></span><br><span class="line">    director-&gt;setAnimationInterval(<span class="number">1.0</span> / <span class="number">60</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建一个场景，它是一个自动释放对象</span></span><br><span class="line">    <span class="keyword">auto</span> scene = HelloWorld::createScene();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//运行第一个场景</span></span><br><span class="line">    director-&gt;runWithScene(scene);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//此函数在游戏被切换到后台运行时被调用</span></span><br><span class="line"><span class="keyword">void</span> AppDelegate::applicationDidEnterBackground() &#123;</span><br><span class="line">    <span class="comment">//停止动作</span></span><br><span class="line">    Director::getInstance()-&gt;stopAnimation();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//停止背景音乐</span></span><br><span class="line">    <span class="comment">// SimpleAudioEngine::getInstance()-&gt;pauseBackgroundMusic();</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//当然，你可以根据自己的需求添加相关功能代码</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//此函数在游戏从后台切换到前台运行时被调用</span></span><br><span class="line"><span class="keyword">void</span> AppDelegate::applicationWillEnterForeground() &#123;</span><br><span class="line">    <span class="comment">//启动动作</span></span><br><span class="line">    Director::getInstance()-&gt;startAnimation();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//恢复背景音乐</span></span><br><span class="line">    <span class="comment">// SimpleAudioEngine::getInstance()-&gt;resumeBackgroundMusic();</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//当然，你可以根据自己的需求添加相关功能代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>　　然后程序就执行到HelloWorld.cpp文件中，首先我们来看看HelloWorld.h文件的代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/********HelloWorld.h********/</span></span><br><span class="line"><span class="comment">/**</span><br><span class="line">*下面两行代码以及最后一行代码，主要作用是声明该头文件的唯一性</span><br><span class="line">*个人习惯用#pragma once来替代这三行代码</span><br><span class="line">*主要因为简洁明了</span><br><span class="line">*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __HELLOWORLD_SCENE_H__</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __HELLOWORLD_SCENE_H__</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//包含cocos2d.h头文件，基本上所有的类都要包含此头文件</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="string">"cocos2d.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">*声明一个HelloWorld类</span><br><span class="line">*该类公有继承自cocos2d;;Layer</span><br><span class="line">*cocos2d::表示Layer类的命名空间</span><br><span class="line">*/</span></span><br><span class="line"><span class="keyword">class</span> HelloWorld : <span class="keyword">public</span> cocos2d::Layer</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">//静态函数，作用创建一个场景，返回值类型为Scene</span></span><br><span class="line">    <span class="keyword">static</span> cocos2d::<span class="function">Scene* <span class="title">createScene</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//继承的虚函数，作用初始化，返回值类型为bool</span></span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">init</span><span class="params">()</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//回调函数，无返回值，参数类型为Ref</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">menuCloseCallback</span><span class="params">(cocos2d::Ref* pSender)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//宏定义，表示创建HelloWorld的另外一种静态函数</span></span><br><span class="line">    <span class="comment">//static HelloWorld* create();</span></span><br><span class="line">    <span class="comment">//具体代码实现请自行按F12跳转查看</span></span><br><span class="line">    CREATE_FUNC(HelloWorld);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">// __HELLOWORLD_SCENE_H__</span></span></span><br></pre></td></tr></table></figure></p>
+<p>　　接下来看看HelloWorld类的实现代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/********HelloWorld.cpp********/</span></span><br><span class="line"><span class="comment">//包含头文件</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="string">"HelloWorldScene.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//宏定义，添加命名空间cocos2d</span></span><br><span class="line">USING_NS_CC;</span><br><span class="line"></span><br><span class="line">Scene* HelloWorld::createScene()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//创建一个Scene</span></span><br><span class="line">    <span class="keyword">auto</span> scene = Scene::create();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//创建一个HelloWorld的Layer</span></span><br><span class="line">    <span class="keyword">auto</span> layer = HelloWorld::create();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将layer添加到scene节点上</span></span><br><span class="line">    scene-&gt;addChild(layer);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//返回scene</span></span><br><span class="line">    <span class="keyword">return</span> scene;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">bool</span> HelloWorld::init()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//判断Layer有没有被初始化</span></span><br><span class="line">    <span class="keyword">if</span> ( !Layer::init() )</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//获得模拟器（设备）的可见尺寸大小</span></span><br><span class="line">    Size visibleSize = Director::getInstance()-&gt;getVisibleSize();</span><br><span class="line">    <span class="comment">//获得模拟器（设备）的可见区域的原点坐标</span></span><br><span class="line">    Vec2 origin = Director::getInstance()-&gt;getVisibleOrigin();</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建一个菜单项</span></span><br><span class="line">    <span class="keyword">auto</span> closeItem = MenuItemImage::create(</span><br><span class="line">                                           <span class="string">"CloseNormal.png"</span>,</span><br><span class="line">                                           <span class="string">"CloseSelected.png"</span>,</span><br><span class="line">                                           <span class="comment">//该菜单项绑定的回调函数为menuCloseCallback</span></span><br><span class="line">                                           <span class="comment">//即当用户单击此菜单项系统会调用执行menuCloseCallback函数</span></span><br><span class="line">                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, <span class="keyword">this</span>));</span><br><span class="line">    </span><br><span class="line">	<span class="comment">//设置closeItem菜单项的位置</span></span><br><span class="line">	<span class="comment">//getContentSize()函数为获得节点的尺寸大小</span></span><br><span class="line">	closeItem-&gt;setPosition(Vec2(origin.x + visibleSize.width - closeItem-&gt;getContentSize().width/<span class="number">2</span> ,</span><br><span class="line">                                origin.y + closeItem-&gt;getContentSize().height/<span class="number">2</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//根据closeItem菜单项创建一个菜单</span></span><br><span class="line">    <span class="keyword">auto</span> menu = Menu::create(closeItem, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="comment">//设置菜单的位置，Vec2::ZERO为cocos2d-x中的常量，还有其他常量请自行F12跳转查看</span></span><br><span class="line">    menu-&gt;setPosition(Vec2::ZERO);</span><br><span class="line">    <span class="comment">//this为当前节点，此处为HelloWorld类的一个layer</span></span><br><span class="line">    <span class="comment">//将menu添加在layer节点上，并设置menu的ZOrder值为1</span></span><br><span class="line">    <span class="keyword">this</span>-&gt;addChild(menu, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建一个Label（标签）对象，内容为"Hello World"，字体为"fonts/Marker Felt.ttf"，字号为24</span></span><br><span class="line">    <span class="keyword">auto</span> label = Label::createWithTTF(<span class="string">"Hello World"</span>, <span class="string">"fonts/Marker Felt.ttf"</span>, <span class="number">24</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//设置标签的坐标</span></span><br><span class="line">    label-&gt;setPosition(Vec2(origin.x + visibleSize.width/<span class="number">2</span>,</span><br><span class="line">                            origin.y + visibleSize.height - label-&gt;getContentSize().height));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将label添加在layer节点上，并设置label的ZOrder值为1</span></span><br><span class="line">    <span class="keyword">this</span>-&gt;addChild(label, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建一个精灵</span></span><br><span class="line">    <span class="keyword">auto</span> sprite = Sprite::create(<span class="string">"HelloWorld.png"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//设置精灵的坐标</span></span><br><span class="line">    sprite-&gt;setPosition(Vec2(visibleSize.width/<span class="number">2</span> + origin.x, visibleSize.height/<span class="number">2</span> + origin.y));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将sprite添加在layer节点上，并设置sprite的ZOrder值为0</span></span><br><span class="line">    <span class="keyword">this</span>-&gt;addChild(sprite, <span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//菜单的回调函数</span></span><br><span class="line"><span class="keyword">void</span> HelloWorld::menuCloseCallback(Ref* pSender)</span><br><span class="line">&#123;</span><br><span class="line"><span class="comment">//预判断</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)</span></span><br><span class="line">	MessageBox(<span class="string">"You pressed the close button. Windows Store Apps do not implement a close button."</span>,<span class="string">"Alert"</span>);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//退出导演，即退出Scene，也就是关闭该游戏</span></span><br><span class="line">    Director::getInstance()-&gt;end();</span><br><span class="line"></span><br><span class="line"><span class="comment">//预判断</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)</span></span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>　　最后我们就要把项目调试通过并打开模拟器跑起来了，可以直接按快捷键F5，也可单击“调试–&gt;启动调试”，当然也可以单击工具栏上的“本地Windows调试器”按钮，调试完成后会自动弹出模拟器窗口并显示项目内容如下：<img src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-1-5.png-imageStyle" alt="Cocos2d-x-two-1-5.png"><br>　　<strong><em>提示：Cocos2d-x也提供了几个示例项目以及功能介绍项目，这些项目放在Cocos2d-x引擎解压的文件夹中的tests文件夹中，其中项目的打开方式同上面打开HelloWorld项目的方法一样。大家有空的时候可以运行看看，很值得一看，也可以对照源码看看功能的实现代码是啥样的。</em></strong></p>
+<hr>
+<p><strong><em>版权声明：本文为船长原创文章，未经船长允许不得转载。</em></strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励船长继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.png" alt="An_coder WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.png" alt="An_coder Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/17/Cocos2d-x-one-3/" rel="next" title="Cocos2d-x的Vector、Map和Value容器">
+                <i class="fa fa-chevron-left"></i> Cocos2d-x的Vector、Map和Value容器
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/24/Cocos2d-x-two-1/"
+           data-title="第一个Cocos2d-x项目之HelloWorld详解" data-url="http://www.an-coder.com/2016/07/24/Cocos2d-x-two-1/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            船长概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="An_coder" />
+          <p class="site-author-name" itemprop="name">An_coder</p>
+          <p class="site-description motion-element" itemprop="description">爱生活的程序猿</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/An007coder" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5634763996" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建HelloWorld项目"><span class="nav-number">1.</span> <span class="nav-text">创建HelloWorld项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行创建"><span class="nav-number">1.1.</span> <span class="nav-text">命令行创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脚本创建"><span class="nav-number">1.2.</span> <span class="nav-text">脚本创建</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目结构分析"><span class="nav-number">2.</span> <span class="nav-text">项目结构分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目的文件结构"><span class="nav-number">2.1.</span> <span class="nav-text">项目的文件结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#项目的代码结构"><span class="nav-number">2.2.</span> <span class="nav-text">项目的代码结构</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<div class="copyright" align="center" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">An_coder</span>
+</div>
+
+<div align="center">
+	<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+	</span>
+	<span class="with-love">
+    <i class="fa fa-heart"></i>
+  	</span>
+	<span id="busuanzi_container_site_uv">
+  	本站访客数<span id="busuanzi_value_site_uv"></span>人次
+	</span>
+</div>
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"an-coder"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+
+  
+  
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
