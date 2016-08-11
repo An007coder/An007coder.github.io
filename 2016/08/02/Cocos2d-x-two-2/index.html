@@ -1,0 +1,724 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="通过前几篇博文我们知道了一些基本概念和Sprite、Layer与Scene的创建，我们学习了这些就可以创建自己的游戏场景界面等，但是，创建出来的场景界面是静态的，而游戏中主要是动态的[/手动惊恐]，各位小伙伴不要惊慌，Cocos2d-x中声明了一个Action（动作）类，下面船长就来说说Action类及其子类的概述用法等。
+Action 动作类　　动作类（Action）是所有动作的基类，它创建">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cocos2d-x的动作">
+<meta property="og:url" content="http://www.an-coder.com/2016/08/02/Cocos2d-x-two-2/index.html">
+<meta property="og:site_name" content="An_coder">
+<meta property="og:description" content="通过前几篇博文我们知道了一些基本概念和Sprite、Layer与Scene的创建，我们学习了这些就可以创建自己的游戏场景界面等，但是，创建出来的场景界面是静态的，而游戏中主要是动态的[/手动惊恐]，各位小伙伴不要惊慌，Cocos2d-x中声明了一个Action（动作）类，下面船长就来说说Action类及其子类的概述用法等。
+Action 动作类　　动作类（Action）是所有动作的基类，它创建">
+<meta property="og:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-2-1.png-imageStyle">
+<meta property="og:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-2-2.png-imageStyle">
+<meta property="og:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-2-3.png-imageStyle">
+<meta property="og:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-2-4.png-imageStyle">
+<meta property="og:updated_time" content="2016-08-11T13:52:03.769Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cocos2d-x的动作">
+<meta name="twitter:description" content="通过前几篇博文我们知道了一些基本概念和Sprite、Layer与Scene的创建，我们学习了这些就可以创建自己的游戏场景界面等，但是，创建出来的场景界面是静态的，而游戏中主要是动态的[/手动惊恐]，各位小伙伴不要惊慌，Cocos2d-x中声明了一个Action（动作）类，下面船长就来说说Action类及其子类的概述用法等。
+Action 动作类　　动作类（Action）是所有动作的基类，它创建">
+<meta name="twitter:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-2-1.png-imageStyle">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6289997537579369000,
+      author: '船长大人'
+    }
+  };
+</script>
+
+  <title> Cocos2d-x的动作 | An_coder </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">An_coder</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+            关于船长
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-guestbook">
+          <a href="/guestbook" rel="section">
+            
+            留言板
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Cocos2d-x的动作
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-02T20:09:46+08:00" content="2016-08-02">
+              2016-08-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Cocos2d-x基础知识系列/" itemprop="url" rel="index">
+                    <span itemprop="name">Cocos2d-x基础知识系列</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/02/Cocos2d-x-two-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/02/Cocos2d-x-two-2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+          
+          	<span id="busuanzi_container_page_pv">  |  阅读量 <span id="busuanzi_value_page_pv"></span> 次</span>
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　通过前几篇博文我们知道了一些基本概念和Sprite、Layer与Scene的创建，我们学习了这些就可以创建自己的游戏场景界面等，但是，创建出来的场景界面是静态的，而游戏中主要是动态的[/手动惊恐]，各位小伙伴不要惊慌，Cocos2d-x中声明了一个Action（动作）类，下面船长就来说说Action类及其子类的概述用法等。</p>
+<h2 id="Action-动作类"><a href="#Action-动作类" class="headerlink" title="Action 动作类"></a>Action 动作类</h2><p>　　动作类（Action）是所有动作的基类，它创建的一个对象代表一个动作。动作作用在Node上，因此每一个动作都需要由Node对象来执行。动作类（Action）作为基类，实际上是一个接口，动作类的大多数实现类都派生于有限时间动作类（FiniteTimeAction）。当然，Action类的子类还有Follow与Speed两个动作类。Action的子类及其父类的关系图解如下：<img src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-2-1.png-imageStyle" alt="Cocos2d-x-two-2-1.png"><br>　　Action类的主要成员函数：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回一个一样的新动作</span></span><br><span class="line"><span class="function"><span class="keyword">virtual</span> Action* <span class="title">clone</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//返回一个新动作，执行与原动作相反的动作</span></span><br><span class="line"><span class="function"><span class="keyword">virtual</span> Action* <span class="title">reverse</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断动作是否已经执行完，执行完返回true</span></span><br><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">isDone</span><span class="params">()</span> <span class="keyword">const</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在动作执行之前被调用，设置动作执行在哪个Node上</span></span><br><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">startWithTarget</span><span class="params">(Node *target)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span><br><span class="line">*动作开始后每一帧都会被调用，传入参数dt为与上一帧的时间间隔，dt以秒为单位</span><br><span class="line">*不要轻易重载这个函数，除非你真的知道这样做的结果</span><br><span class="line">*/</span></span><br><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">step</span><span class="params">(<span class="keyword">float</span> dt)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span><br><span class="line">*动作开始后每一帧都会被调用，参数time是一个0到1的进度值</span><br><span class="line">*例如：</span><br><span class="line">*	0表示动作刚开始执行</span><br><span class="line">*	0.5表示动作执行了一半</span><br><span class="line">*	1表示动作已经执行完了</span><br><span class="line">*/</span></span><br><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(<span class="keyword">float</span> time)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//内联函数，返回执行该动作的Node</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> Node* <span class="title">getTarget</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> _target; &#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="FiniteTimeAction-有限时间动作类"><a href="#FiniteTimeAction-有限时间动作类" class="headerlink" title="FiniteTimeAction 有限时间动作类"></a>FiniteTimeAction 有限时间动作类</h3><p>　　FiniteTimeAction类继承自Action类，其子类有ActionInterval（延时动作）类与ActionInstant（瞬时动作）类，在实际游戏开发中经常用到这两个子类中的子类动作。</p>
+<h4 id="ActionInterval-延时动作类"><a href="#ActionInterval-延时动作类" class="headerlink" title="ActionInterval 延时动作类"></a>ActionInterval 延时动作类</h4><p>　　ActionInstant类动作的执行是在指定的时间内完成，是有一个过程的。其子类如下图：<img src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-2-2.png-imageStyle" alt="Cocos2d-x-two-2-2.png"><br>　　需要注意的是XXXBy与XXXTo的区别（XXX表示动作的名称前一个单词，如MoveBy、MoveTo中的Move，JumpBy、JumpTo中的Jump等），它们的区别在于By是相对的（向量改变值），To是绝对的，比如MoveBy与MoveTo的动作，效果如下：<video height="466" width="700" autoplay="true" loop="true" src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-2-1.mp4"></video>示例代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//路飞1：位置设置在模拟器的左上角</span></span><br><span class="line"><span class="keyword">auto</span> luFei1 = Sprite::create(<span class="string">"lufei.png"</span>);</span><br><span class="line">luFei1-&gt;setPosition(Vec2(<span class="number">100</span>, <span class="number">400</span>));</span><br><span class="line">addChild(luFei1);</span><br><span class="line"></span><br><span class="line"><span class="comment">//路飞2：位置设置在模拟器的左下角</span></span><br><span class="line"><span class="keyword">auto</span> luFei2 = Sprite::create(<span class="string">"lufei.png"</span>);</span><br><span class="line">luFei2-&gt;setPosition(Vec2(<span class="number">100</span>, <span class="number">100</span>));</span><br><span class="line">addChild(luFei2);</span><br><span class="line"></span><br><span class="line"><span class="comment">//MoveBy动作，第一个参数为该动作执行时间，第二个参数为坐标</span></span><br><span class="line"><span class="keyword">auto</span> moveBy = MoveBy::create(<span class="number">3.0f</span>, Vec2(<span class="number">800</span>, <span class="number">400</span>));</span><br><span class="line"><span class="comment">//MoveTo动作，第一个参数为该动作执行时间，第二个参数为坐标</span></span><br><span class="line"><span class="keyword">auto</span> moveTo = MoveTo::create(<span class="number">3.0f</span>, Vec2(<span class="number">800</span>, <span class="number">400</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//路飞1执行MoveTo动作、路飞2执行MoveBy动作</span></span><br><span class="line">luFei1-&gt;runAction(moveTo);</span><br><span class="line">luFei2-&gt;runAction(moveBy);</span><br></pre></td></tr></table></figure></p>
+<p>　　其他XXXBy和XXXTo的动作也与MoveBy和MoveTo类似，这里船长就不再赘述了，大伙可以查看<a href="http://api.cocos.com/cn/db/d61/classcocos2d_1_1_action.html" target="_blank" rel="external">Cocos2d-x的官方API</a>，船长觉得有事没事看看API还是很有好处哒。接下来看看稍微复杂一点的贝塞尔曲线动作，每条贝塞尔曲线都包含一个起点和一个终点。起点与终点各自包含一个控制点，控制点到端点的连线称为控制线，控制点决定了曲线的形状，包括角度和长度。在实际游戏开发中主要通过两个控制点来控制不同的线路。贝塞尔曲线图解如下：<img src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-2-3.png-imageStyle" alt="Cocos2d-x-two-2-3.png">贝塞尔曲线动作效果如下：<video width="700" height="466" autoplay="true" loop="true" src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-2-2.mp4"></video>示例代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//路飞1：位置设置在模拟器的左上角</span></span><br><span class="line"><span class="keyword">auto</span> luFei1 = Sprite::create(<span class="string">"lufei.png"</span>);</span><br><span class="line">luFei1-&gt;setPosition(Vec2(<span class="number">100</span>, <span class="number">300</span>));</span><br><span class="line">addChild(luFei1);</span><br><span class="line"></span><br><span class="line"><span class="comment">//路飞2：位置设置在模拟器的左下角</span></span><br><span class="line"><span class="keyword">auto</span> luFei2 = Sprite::create(<span class="string">"lufei.png"</span>);</span><br><span class="line">luFei2-&gt;setPosition(Vec2(<span class="number">100</span>, <span class="number">100</span>));</span><br><span class="line">addChild(luFei2);</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置贝塞尔曲线的两个控制点及终点坐标</span></span><br><span class="line">ccBezierConfig bezier;</span><br><span class="line">bezier.controlPoint_1 = Vec2(<span class="number">300</span>, <span class="number">500</span>);</span><br><span class="line">bezier.controlPoint_2 = Vec2(<span class="number">600</span>, <span class="number">50</span>);</span><br><span class="line">bezier.endPosition = Vec2(<span class="number">800</span>, <span class="number">300</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//BezierBy动作</span></span><br><span class="line"><span class="keyword">auto</span> bezierBy = BezierBy::create(<span class="number">4.0f</span>, bezier);</span><br><span class="line"><span class="comment">//BezierTo动作</span></span><br><span class="line"><span class="keyword">auto</span> bezierTo = BezierTo::create(<span class="number">4.0f</span>, bezier);</span><br><span class="line"></span><br><span class="line"><span class="comment">//路飞1执行BezierTo动作、路飞2执行BezierBy动作</span></span><br><span class="line">luFei1-&gt;runAction(bezierTo);</span><br><span class="line">luFei2-&gt;runAction(bezierBy);</span><br></pre></td></tr></table></figure></p>
+<p>　　在游戏中经常会使用到一些加速或减速的动作，Cocos2d-x已经封装了一些类似的动作，如指数缓冲、Sine缓冲、弹性缓冲、跳跃缓冲和回震缓冲等等。每一种动作都包含三个不同时期的变换XXXIn表示开始的时候加速、XXXOut表示结束的时候加速与XXXInOut表示开始和结束的时候加速。下面是回震缓冲的效果：<video width="700" height="466" autoplay="true" loop="true" src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-2-3.mp4"></video>示例代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//路飞1：位置设置在模拟器的左上角</span></span><br><span class="line"><span class="keyword">auto</span> luFei1 = Sprite::create(<span class="string">"lufei.png"</span>);</span><br><span class="line">luFei1-&gt;setPosition(Vec2(<span class="number">100</span>, <span class="number">500</span>));</span><br><span class="line">addChild(luFei1);</span><br><span class="line"></span><br><span class="line"><span class="comment">//路飞2：位置设置在模拟器的左中间</span></span><br><span class="line"><span class="keyword">auto</span> luFei2 = Sprite::create(<span class="string">"lufei.png"</span>);</span><br><span class="line">luFei2-&gt;setPosition(Vec2(<span class="number">100</span>, <span class="number">300</span>));</span><br><span class="line">addChild(luFei2);</span><br><span class="line"></span><br><span class="line"><span class="comment">//路飞2：位置设置在模拟器的左下角</span></span><br><span class="line"><span class="keyword">auto</span> luFei3 = Sprite::create(<span class="string">"lufei.png"</span>);</span><br><span class="line">luFei3-&gt;setPosition(Vec2(<span class="number">100</span>, <span class="number">100</span>));</span><br><span class="line">addChild(luFei3);</span><br><span class="line"></span><br><span class="line"><span class="comment">//回震缓冲动作</span></span><br><span class="line"><span class="keyword">auto</span> move = MoveBy::create(<span class="number">3.0f</span>, Vec2(<span class="number">800</span>, <span class="number">0</span>));</span><br><span class="line"><span class="comment">//缓冲类动作是根据一个延时动作创建的</span></span><br><span class="line"><span class="comment">//一个动作只能同时被一个Node使用，所以下面使用了动作的克隆方法</span></span><br><span class="line"><span class="keyword">auto</span> easeBackIn = EaseBackIn::create(move);</span><br><span class="line"><span class="keyword">auto</span> easeBackOut = EaseBackOut::create(move-&gt;clone());</span><br><span class="line"><span class="keyword">auto</span> easeBackInOut = EaseBackInOut::create(move-&gt;clone());</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span><br><span class="line">*路飞1执行easeBackIn动作</span><br><span class="line">*路飞2执行easeBackOut动作</span><br><span class="line">*路飞3执行easeBackInOut动作</span><br><span class="line">*/</span></span><br><span class="line">luFei1-&gt;runAction(easeBackIn);</span><br><span class="line">luFei2-&gt;runAction(easeBackOut);</span><br><span class="line">luFei3-&gt;runAction(easeBackInOut);</span><br></pre></td></tr></table></figure></p>
+<p>　　船长认为延时动作中最最重要的是组合动作，那么组合动作有哪些呢？其实只有Sequence（顺序组合）与Spawn（一系列动作同时执行）。那么砸门直接看下面的效果展示：<video width="700" height="466" autoplay="true" loop="true" src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-2-4.mp4"></video>示例代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//路飞1：位置设置在模拟器的左上角</span></span><br><span class="line"><span class="keyword">auto</span> luFei1 = Sprite::create(<span class="string">"lufei.png"</span>);</span><br><span class="line">luFei1-&gt;setPosition(Vec2(<span class="number">100</span>, <span class="number">500</span>));</span><br><span class="line">addChild(luFei1);</span><br><span class="line"></span><br><span class="line"><span class="comment">//路飞2：位置设置在模拟器的左下角</span></span><br><span class="line"><span class="keyword">auto</span> luFei2 = Sprite::create(<span class="string">"lufei.png"</span>);</span><br><span class="line">luFei2-&gt;setPosition(Vec2(<span class="number">100</span>, <span class="number">100</span>));</span><br><span class="line">addChild(luFei2);</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建一系列动作</span></span><br><span class="line"><span class="comment">//移动</span></span><br><span class="line"><span class="keyword">auto</span> move = MoveBy::create(<span class="number">3.0f</span>, Vec2(<span class="number">800</span>, <span class="number">0</span>));</span><br><span class="line"><span class="comment">//闪烁，1.5秒闪6次</span></span><br><span class="line"><span class="keyword">auto</span> blink = Blink::create(<span class="number">1.5f</span>, <span class="number">6</span>);</span><br><span class="line"><span class="comment">//旋转，1.5秒旋转360°</span></span><br><span class="line"><span class="keyword">auto</span> rotate = RotateBy::create(<span class="number">1.5f</span>, <span class="number">360</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建组合动作</span></span><br><span class="line"><span class="comment">//顺序动作，一个动作一个动作地执行</span></span><br><span class="line"><span class="keyword">auto</span> sequence = Sequence::create(move, blink, rotate, <span class="literal">nullptr</span>);</span><br><span class="line"><span class="comment">//一系列动作同时开始执行</span></span><br><span class="line"><span class="keyword">auto</span> spawn = Spawn::create(move-&gt;clone(), blink-&gt;clone(), rotate-&gt;clone(), <span class="literal">nullptr</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//路飞1执行sequence动作，路飞2执行spawn动作</span></span><br><span class="line">luFei1-&gt;runAction(sequence);</span><br><span class="line">luFei2-&gt;runAction(spawn);</span><br></pre></td></tr></table></figure></p>
+<h4 id="ActionInstant-瞬时动作类"><a href="#ActionInstant-瞬时动作类" class="headerlink" title="ActionInstant 瞬时动作类"></a>ActionInstant 瞬时动作类</h4><p>　　ActionInstant类动作是即时动作，没有动作过程，立即完成的动作。其子类如下图：<img src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-2-4.png-imageStyle" alt="Cocos2d-x-two-2-4.png">瞬时动作比延时动作简单很多，动作也不多，所以请容许船长偷个懒只简单说明两三个动作。<br>　　♠ FlipX与FlipY：这两个动作分别用于将精灵沿X轴和Y轴反向显示，其作用与设置精灵的FlipX和FlipY属性相同，将其包装成动作是为了便于与其他动作进行组合。示例代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建路飞精灵</span></span><br><span class="line"><span class="keyword">auto</span> luFei = Sprite::create(<span class="string">"lufei.png"</span>);</span><br><span class="line">luFei-&gt;setPosition(Vec2(<span class="number">350</span>, <span class="number">300</span>));</span><br><span class="line">addChild(luFei);</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建FlipX、FlipY动作</span></span><br><span class="line"><span class="keyword">auto</span> flipX = FlipX::create(<span class="literal">true</span>);</span><br><span class="line"><span class="keyword">auto</span> flipY = FlipY::create(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//路飞执行组合动作（移动完成后执行FlipX或FlipY动作）</span></span><br><span class="line">luFei-&gt;runAction(Sequence::create(MoveBy::create(<span class="number">1.5f</span>, Vec2(<span class="number">300</span>, <span class="number">0</span>)), flipX, <span class="literal">nullptr</span>));</span><br></pre></td></tr></table></figure></p>
+<p>　　♠ Show与Hide：这两个动作分别用于显示和隐藏节点，其作用与设置节点的visible属性作用一样。示例代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建Show、Hide动作</span></span><br><span class="line"><span class="keyword">auto</span> show = Show::create();</span><br><span class="line"><span class="keyword">auto</span> hide = Hide::create();</span><br><span class="line"></span><br><span class="line"><span class="comment">//路飞执行组合动作（移动完成后执行Show或Hide动作）</span></span><br><span class="line">luFei-&gt;runAction(Sequence::create(MoveBy::create(<span class="number">1.5f</span>, Vec2(<span class="number">300</span>, <span class="number">0</span>)), hide, <span class="literal">nullptr</span>));</span><br></pre></td></tr></table></figure></p>
+<p>　　♠ CallFunc：CallFunc系列动作包括CallFunc、CallFuncN两个动作，用来在动作中进行方法调用。示例代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用Lambda表达式创建</span></span><br><span class="line"><span class="keyword">auto</span> callFunc1 = CallFunc::create([=]()&#123;<span class="built_in">log</span>(<span class="string">"使用Lambda表达式创建回调动作"</span>); &#125;);</span><br><span class="line"><span class="comment">//使用成员函数创建</span></span><br><span class="line"><span class="keyword">auto</span> callFunc2 = CallFunc::create(CC_CALLBACK_0(HelloWorld::bezierTest, <span class="keyword">this</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//路飞执行组合动作（移动完成后执行回调动作）</span></span><br><span class="line">luFei-&gt;runAction(Sequence::create(MoveBy::create(<span class="number">1.5f</span>, Vec2(<span class="number">300</span>, <span class="number">0</span>)), callFunc1, <span class="literal">nullptr</span>));</span><br></pre></td></tr></table></figure></p>
+<h3 id="Follow-跟随动作类"><a href="#Follow-跟随动作类" class="headerlink" title="Follow 跟随动作类"></a>Follow 跟随动作类</h3><p>　　Follow类是一个追踪某个节点的移动动作。与其使用相机去追踪一个动作，你可以使用这个动作达到同样的效果。该动作主要用于层跟随精灵节点，节点跟随节点使用其他方法，如将节点与节点建立父子关系等。层跟随精灵节点的效果展示如下：<video width="700" height="466" autoplay="true" loop="true" src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-2-5.mp4"></video>示例代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span><br><span class="line">*注意：船长对于Follow动作领悟的还不是很彻底，但是尽自己领悟到的做了一下示例。</span><br><span class="line">*1、下面背景、路飞的坐标为什么是那样的？</span><br><span class="line">*	答：原因是船长将此层跟随（Follow）了路飞，所以摄像机的镜头是以路飞为中心，</span><br><span class="line">*		因此其他精灵或节点的坐标是以路飞的相对坐标然后转换成的世界坐标。</span><br><span class="line">*2、为什么路飞旋转时，层不变化？</span><br><span class="line">*	答：因为Follow只是跟随位置动作，其他动作并没有显示上的表现。</span><br><span class="line">*/</span></span><br><span class="line"><span class="comment">//创建背景</span></span><br><span class="line"><span class="keyword">auto</span> bg = Sprite::create(<span class="string">"bg.png"</span>);</span><br><span class="line">bg-&gt;setPosition(Vec2(<span class="number">350</span>, <span class="number">100</span>));</span><br><span class="line">addChild(bg);</span><br><span class="line"><span class="comment">//创建路飞精灵</span></span><br><span class="line"><span class="keyword">auto</span> luFei = Sprite::create(<span class="string">"lufei.png"</span>);</span><br><span class="line">luFei-&gt;setPosition(Vec2(<span class="number">100</span>, <span class="number">100</span>));</span><br><span class="line">addChild(luFei);</span><br><span class="line"></span><br><span class="line"><span class="comment">//路飞的动作</span></span><br><span class="line"><span class="keyword">auto</span> sequence = Sequence::create(MoveBy::create(<span class="number">3.0f</span>, Vec2(<span class="number">500</span>, <span class="number">0</span>)), RotateBy::create(<span class="number">1.5f</span>, <span class="number">360</span>), <span class="literal">nullptr</span>);</span><br><span class="line">luFei-&gt;runAction(sequence);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Follow动作</span></span><br><span class="line"><span class="keyword">auto</span> follow = Follow::create(luFei);</span><br><span class="line"><span class="keyword">this</span>-&gt;runAction(follow);</span><br></pre></td></tr></table></figure></p>
+<h3 id="Speed-变速动作类"><a href="#Speed-变速动作类" class="headerlink" title="Speed 变速动作类"></a>Speed 变速动作类</h3><p>　　Speed类可以改变一个动作的速度，使该动作执行得时间变长或缩短，当speed&gt;1时动作的执行时间会缩短，达到快进的效果；当speed<1时动作的执行时间会变长，达到慢动作的效果；当speed=1时动作会以原始速度执行。实例代码如下： <figure="" class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> sequence = Sequence::create(MoveBy::create(<span class="number">1.5f</span>, Vec2(<span class="number">300</span>, <span class="number">0</span>)), RotateBy::create(<span class="number">1.5f</span>, <span class="number">360</span>), <span class="literal">nullptr</span>);</span><br><span class="line"><span class="keyword">auto</span> speed = Speed::create(sequence, <span class="number">0.5</span>);</span><br><span class="line">luFei-&gt;runAction(speed);</span><br></pre></td></tr></table></1时动作的执行时间会变长，达到慢动作的效果；当speed=1时动作会以原始速度执行。实例代码如下：></p>
+<blockquote>
+<p><strong>建议大伙多看看官方文档与API，以及Cocos2d-x的示例Demo</strong></p>
+</blockquote>
+<hr>
+<p><strong><em>版权声明：本文为船长原创文章，未经船长允许不得转载。</em></strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励船长继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechatpay.png" alt="An_coder WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay.png" alt="An_coder Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/24/Cocos2d-x-two-1/" rel="next" title="第一个Cocos2d-x项目之HelloWorld详解">
+                <i class="fa fa-chevron-left"></i> 第一个Cocos2d-x项目之HelloWorld详解
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/08/02/Cocos2d-x-two-2/"
+           data-title="Cocos2d-x的动作" data-url="http://www.an-coder.com/2016/08/02/Cocos2d-x-two-2/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            船长概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="An_coder" />
+          <p class="site-author-name" itemprop="name">An_coder</p>
+          <p class="site-description motion-element" itemprop="description">爱生活的程序猿</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/An007coder" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5634763996" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Action-动作类"><span class="nav-number">1.</span> <span class="nav-text">Action 动作类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FiniteTimeAction-有限时间动作类"><span class="nav-number">1.1.</span> <span class="nav-text">FiniteTimeAction 有限时间动作类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ActionInterval-延时动作类"><span class="nav-number">1.1.1.</span> <span class="nav-text">ActionInterval 延时动作类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ActionInstant-瞬时动作类"><span class="nav-number">1.1.2.</span> <span class="nav-text">ActionInstant 瞬时动作类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Follow-跟随动作类"><span class="nav-number">1.2.</span> <span class="nav-text">Follow 跟随动作类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Speed-变速动作类"><span class="nav-number">1.3.</span> <span class="nav-text">Speed 变速动作类</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<div class="copyright" align="center" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">An_coder</span>
+</div>
+
+<div align="center">
+	<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+	</span>
+	<span class="with-love">
+    <i class="fa fa-heart"></i>
+  	</span>
+	<span id="busuanzi_container_site_uv">
+  	本站访客数<span id="busuanzi_value_site_uv"></span>人次
+	</span>
+</div>
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"an-coder"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+      
+      <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+      <script src="/js/src/hook-duoshuo.js"></script>
+    
+  
+
+
+
+
+
+
+  
+  
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
