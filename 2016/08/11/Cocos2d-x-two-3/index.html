@@ -82,16 +82,20 @@
 
 
 
-<meta name="description" content="从Cocos2d-x3.0开始使用Vector&amp;lt;T&amp;gt;和Map&amp;lt;K,V&amp;gt;代替之前版本的CCArray和CCDictionary，新的容器类使用模板类避免了不必要的数据类型转换，同时能够完美地支持标准库中的各种迭代操作，例如std::find()、std::sort()等。实际上，Vector&amp;lt;T&amp;gt;和Map&amp;lt;K,V&amp;gt;仅是对标准库中的std::vect">
+<meta name="description" content="上一篇博文讲了各种各样的动作（虽然船长只举例讲了几类动作，但是Cocos2d-x中封装了比较多的动作[/手动尴尬]），如果大家掌（练）握（习）地还算熟练的话，自己做出一些比较复（酷）杂（炫）的动作应该还是木有问题的吧。But，大家有木有觉得砸门用那些动作组合出来的复杂动作很僵硬，总感觉差点什么，有木有？？？下面船长就来讲讲解决这种僵硬的方法之动画，Cocos2d-x中的动画有两种，分别是序列帧">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cocos2d-x的Vector、Map和Value容器">
-<meta property="og:url" content="http://www.an-coder.com/2016/07/17/Cocos2d-x-one-3/index.html">
+<meta property="og:title" content="Cocos2d-x之动画">
+<meta property="og:url" content="http://www.an-coder.com/2016/08/11/Cocos2d-x-two-3/index.html">
 <meta property="og:site_name" content="An_coder">
-<meta property="og:description" content="从Cocos2d-x3.0开始使用Vector&amp;lt;T&amp;gt;和Map&amp;lt;K,V&amp;gt;代替之前版本的CCArray和CCDictionary，新的容器类使用模板类避免了不必要的数据类型转换，同时能够完美地支持标准库中的各种迭代操作，例如std::find()、std::sort()等。实际上，Vector&amp;lt;T&amp;gt;和Map&amp;lt;K,V&amp;gt;仅是对标准库中的std::vect">
-<meta property="og:updated_time" content="2016-08-02T12:32:06.923Z">
+<meta property="og:description" content="上一篇博文讲了各种各样的动作（虽然船长只举例讲了几类动作，但是Cocos2d-x中封装了比较多的动作[/手动尴尬]），如果大家掌（练）握（习）地还算熟练的话，自己做出一些比较复（酷）杂（炫）的动作应该还是木有问题的吧。But，大家有木有觉得砸门用那些动作组合出来的复杂动作很僵硬，总感觉差点什么，有木有？？？下面船长就来讲讲解决这种僵硬的方法之动画，Cocos2d-x中的动画有两种，分别是序列帧">
+<meta property="og:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-3-1.png-imageStyle">
+<meta property="og:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-3-2.png-imageStyle">
+<meta property="og:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-3-3.png-imageStyle">
+<meta property="og:updated_time" content="2016-08-18T09:35:42.927Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Cocos2d-x的Vector、Map和Value容器">
-<meta name="twitter:description" content="从Cocos2d-x3.0开始使用Vector&amp;lt;T&amp;gt;和Map&amp;lt;K,V&amp;gt;代替之前版本的CCArray和CCDictionary，新的容器类使用模板类避免了不必要的数据类型转换，同时能够完美地支持标准库中的各种迭代操作，例如std::find()、std::sort()等。实际上，Vector&amp;lt;T&amp;gt;和Map&amp;lt;K,V&amp;gt;仅是对标准库中的std::vect">
+<meta name="twitter:title" content="Cocos2d-x之动画">
+<meta name="twitter:description" content="上一篇博文讲了各种各样的动作（虽然船长只举例讲了几类动作，但是Cocos2d-x中封装了比较多的动作[/手动尴尬]），如果大家掌（练）握（习）地还算熟练的话，自己做出一些比较复（酷）杂（炫）的动作应该还是木有问题的吧。But，大家有木有觉得砸门用那些动作组合出来的复杂动作很僵硬，总感觉差点什么，有木有？？？下面船长就来讲讲解决这种僵硬的方法之动画，Cocos2d-x中的动画有两种，分别是序列帧">
+<meta name="twitter:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-3-1.png-imageStyle">
 
 
 
@@ -109,7 +113,7 @@
   };
 </script>
 
-  <title> Cocos2d-x的Vector、Map和Value容器 | An_coder </title>
+  <title> Cocos2d-x之动画 | An_coder </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -239,7 +243,7 @@
             
             
               
-                Cocos2d-x的Vector、Map和Value容器
+                Cocos2d-x之动画
               
             
           </h1>
@@ -251,8 +255,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-17T21:12:34+08:00" content="2016-07-17">
-              2016-07-17
+            <time itemprop="dateCreated" datetime="2016-08-11T15:00:11+08:00" content="2016-08-11">
+              2016-08-11
             </time>
           </span>
 
@@ -281,8 +285,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/17/Cocos2d-x-one-3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/17/Cocos2d-x-one-3/" itemprop="commentsCount"></span>
+                <a href="/2016/08/11/Cocos2d-x-two-3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/11/Cocos2d-x-two-3/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -312,12 +316,12 @@
       
 
       
-        <p>　　从Cocos2d-x3.0开始使用Vector&lt;T&gt;和Map&lt;K,V&gt;代替之前版本的CCArray和CCDictionary，新的容器类使用模板类避免了不必要的数据类型转换，同时能够完美地支持标准库中的各种迭代操作，例如std::find()、std::sort()等。实际上，Vector&lt;T&gt;和Map&lt;K,V&gt;仅是对标准库中的std::vector&lt;T&gt;和std::unordered_map&lt;K,V&gt;的封装，使它们能够结合Cocos2d-x的内存管理方式。新的容器类不在继承CCObject类，而是继承自3.0新增的Ref类，cocos2d::Vector&lt;T&gt;和cocos2d::Map&lt;K,V&gt;将以值类型在堆栈（stack）中分配，它们使用C++的自动内存管理，而不需要使用new和delete来进行分配与删除内存，这更遵循C++中容器的使用风格，且读取速度也更快。</p>
-<h2 id="cocos2d-Vector-lt-T-gt"><a href="#cocos2d-Vector-lt-T-gt" class="headerlink" title="cocos2d::Vector&lt;T&gt;"></a>cocos2d::Vector&lt;T&gt;</h2><p>　　cocos2d::Vector&lt;T&gt;是一个封装好的能动态增长顺序访问的容器。cocos2d::Vector&lt;T&gt;中的元素是按序存储的，它的底层实现数据结构是标准板库中的标准顺序容器std::vector。设计者将cocos2d::Vector&lt;T&gt;设计为cocos2d::CCArray的替代品。按照Cocos2d-x容器的内存管理要求，存入容器的对象必须是cocos2d::Ref或其派生类。<br>　　cocos2d::Vector&lt;T&gt;使用标准顺序容器std::vector&lt;T&gt;的基本操作加上Cocos2d-x的内存管理规则来覆盖该模板原先的普通操作。所以，pushBack()操作将会保留传递过来的参数，而popBack()则会释放容器中最后一个元素。cocos2d::Vector&lt;T&gt;提供了不同类型的迭代器，所以我们可以受益于C++的标准函数库，可以使用大量标准泛型算法和for_each循环。除了std::vector容器的操作之外，还加入了许多标准算法，诸如std::find、std::reverse和std::swap，这些算法可以简化很多通用的操作。<br>　　cocos2d::Vector&lt;T&gt;类的常用函数如下：<br>　　♠ ssize_t capacity() const：返回当前分配的存储容器大小。<br>　　♠ ssize_t size() const：返回容器中元素的数量。<br>　　♠ bool empty() const：判断容器是否为空，即容器中是否有元素。<br>　　♠ ssize_t max_size() const：返回容器可以容纳最大的元素数量。<br>　　♠ ssize_t getIndex(T object) const：返回object在容器中的索引。<br>　　♠ iterator find(T object)：查找object对象，返回一个迭代器。<br>　　♠ T at(ssize_t index) const：返回容器中位置（索引）为index的元素。<br>　　♠ T front() const：返回容器中的第一个元素。<br>　　♠ T back() const：返回容器中的最后一个元素。<br>　　♠ T getRandomObject() const：随机返回容器中的一个元素。<br>　　♠ bool contains(T object) const：判断object是否是容器中的元素。<br>　　♠ bool equals(const Vector&lt;T&gt; &amp;other)：判断该容器与other容器是否相等。<br>　　♠ void pushBack(T object)：将object对象添加到容器的末尾。<br>　　♠ void pushBack(const Vector&lt;T&gt;&amp; other)：将other容器中的所有元素添加到当前容器中。<br>　　♠ void insert(ssize_t index, T object)：将object对象插入到容器的index（索引）的位置。<br>　　♠ void popBack()：删除容器中的最后一个元素。<br>　　♠ void eraseObject(T object, bool toRelease = true)：将object对象从容器中删除。<br>　　♠ iterator erase(iterator position)：从容器中删除指定的迭代器。<br>　　♠ iterator erase(iterator first, iterator last)：从容器中删除从fist到last的迭代器。<br>　　♠ void clear()：删除容器中的所有的元素，删除后容器的size为0。<br>　　♠ void swap(T object1, T object2)：将容器中的object1与object2对象进行位置索引交换。<br>　　♠ void swap(ssize_t index1, ssize_t index2)：根据索引交换两个元素。<br>　　♠ void replace(ssize_t index, T object)：将object参数替换index索引的元素。<br>　　♠ void reverse()：反转容器中的元素。</p>
+        <p>　　上一篇博文讲了各种各样的动作（虽然船长只举例讲了几类动作，但是Cocos2d-x中封装了比较多的动作[/手动尴尬]），如果大家掌（练）握（习）地还算熟练的话，自己做出一些比较复（酷）杂（炫）的动作应该还是木有问题的吧。But，大家有木有觉得砸门用那些动作组合出来的复杂动作很僵硬，总感觉差点什么，有木有？？？下面船长就来讲讲解决这种僵硬的方法之动画，Cocos2d-x中的动画有两种，分别是序列帧动画和骨骼动画。这里船长就不bb了，下面直接进入正题。</p>
+<h2 id="序列帧动画"><a href="#序列帧动画" class="headerlink" title="序列帧动画"></a>序列帧动画</h2><p>　　Cocos2d-x中动画的具体内容是依靠精灵显示出来的，为了显示动态图片，砸门需要不停切换精灵显示的内容，通过把静态的精灵变为动画播放器从而实现动画效果。序列帧动画由帧组成，每一帧都是一个纹理。使用Animation类描述一个动画，而精灵显示动画的动作则是一个Animate对象。动画动作Animate是精灵显示动画的动作，它由一个动画对象创建，并由精灵执行。直接上代码，如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建一个动画对象</span></span><br><span class="line"><span class="keyword">auto</span> animation = Animation::create();</span><br><span class="line"><span class="comment">//循环5次，给火柴人奔跑动画添加5张精灵帧</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">char</span> str[<span class="number">32</span>];</span><br><span class="line">	<span class="built_in">sprintf</span>(str, <span class="string">"matchstickMen%02d.png"</span>, i);</span><br><span class="line">	<span class="comment">//给动画添加精灵帧</span></span><br><span class="line">	animation-&gt;addSpriteFrameWithFile(str);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//设置动画的每帧时间间隔</span></span><br><span class="line">animation-&gt;setDelayPerUnit(<span class="number">0.1f</span>);</span><br><span class="line"><span class="comment">//设置动画播放结束后是否恢复到第一帧精灵图，不恢复则显示动画的最后一帧精灵图</span></span><br><span class="line">animation-&gt;setRestoreOriginalFrame(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">//根据动画来创建一个动画动作，精灵只能执行Animate对象，不能执行Animation对象</span></span><br><span class="line"><span class="keyword">auto</span> animate = Animate::create(animation);</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建火柴人精灵</span></span><br><span class="line"><span class="keyword">auto</span> matchstickMen = Sprite::create(<span class="string">"matchstickMen00.png"</span>);</span><br><span class="line">matchstickMen-&gt;setPosition(Vec2(<span class="number">200</span>, <span class="number">300</span>));</span><br><span class="line">addChild(matchstickMen);</span><br><span class="line"><span class="comment">//动作</span></span><br><span class="line"><span class="keyword">auto</span> move = MoveBy::create(<span class="number">3.0f</span>, Vec2(<span class="number">500</span>, <span class="number">0</span>));</span><br><span class="line"><span class="keyword">auto</span> flipX = FlipX::create(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">//该顺序动作大致为火柴人向右移动一定距离然后以X轴翻转，接着向左移动一定距离然后以X轴翻转，最后再向右移动一定距离</span></span><br><span class="line"><span class="keyword">auto</span> sequence = Sequence::create(move, flipX, move-&gt;reverse(), flipX-&gt;reverse(), move-&gt;clone(), <span class="literal">nullptr</span>);</span><br><span class="line"><span class="comment">//重复动作，重复animate动画动作19遍，及执行此动作20遍</span></span><br><span class="line"><span class="keyword">auto</span> repeat = Repeat::create(animate, <span class="number">19</span>);</span><br><span class="line"><span class="comment">//火柴人执行动作，同时执行repeat和sequence动作</span></span><br><span class="line">matchstickMen-&gt;runAction(Spawn::create(repeat, sequence, <span class="literal">nullptr</span>));</span><br></pre></td></tr></table></figure></p>
+<p>　　资源图如下：<img src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-3-1.png-imageStyle" alt="Cocos2d-x-two-3-1.png">效果展示如下：<video width="100%" height="width*2/3.0" autoplay="true" loop="true" src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-3-1.mp4"></video><br>　　一般情况下，对于一个精灵动画每次创建时都要通过上述繁琐过程。当一个动作使用频率较高时，砸门将其加入到AnimationCache（动画缓存）中可以提高游戏的性能。AnimationCache类接口如下：<br>　　♠ static AnimationCache＊ getInstance()：获得AnimationCache单例。<br>　　♠ void addAnimation(Animation＊ animation, const std::string&amp; name)：将animation动画添加到动画缓存中，并设置其名字为name。<br>　　♠ void addAnimationsWithFile(const std::string&amp; plist)：将plist动画文件添加到动画缓存中。<br>　　♠ void removeAnimation(const std::string&amp; name)：将名字为name的动画从动画缓存中移除。<br>　　♠ Animation＊ getAnimation(const std::string&amp; name)：从动画缓存中获得名字为name的动画。<br>　　接口的使用很简单，这里船长就不说了。</p>
 <hr>
-<h2 id="cocos2d-Map-lt-K-V-gt"><a href="#cocos2d-Map-lt-K-V-gt" class="headerlink" title="cocos2d::Map&lt;K,V&gt;"></a>cocos2d::Map&lt;K,V&gt;</h2><p>　　cocos2d::Map&lt;K,V&gt;类使用std::unordered_map作为底层结构的关联式容器。而std::unordered_map是一个存储键值对的关联式容器，它可以通过Key（键）快速检索对应的value（值），键是唯一的，值与键对应，在容器内部元素是无序的，它们是根据键的哈希值来存储的，存入容器的对象必须是cocos2d::Ref类或其派生类。<br>　　cocos2d::Map&lt;K,V&gt;类的常用函数如下：<br>　　♥ ssize_t size() const：返回Map容器中元素的数量。<br>　　♥ bool empty() const：判断Map容器是否为空。<br>　　♥ std::vector&lt;K&gt; keys() const：返回Map容器中所有键的集合，返回的是C++标准容器std::vector。<br>　　♥ std::vector&lt;K&gt; keys(V object) const：返回object在Map中匹配的所有键的集合，返回的是C++标准容器std::vector。<br>　　♥ V at(const K&amp; key)：返回Map容器中键为key的值对象。<br>　　♥ iterator find(const K&amp; key)：通过key查找Map容器，返回一个迭代器，迭代器中有键与值。<br>　　♥ void insert(const K&amp; key, V object)：根据key与object向Map容器中插入元素。<br>　　♥ ssize_t erase(const K&amp; key)：根据key从Map容器中删除一个元素。<br>　　♥ iterator erase(const iterator position)：根据position（迭代器）从Map容器中删除一个元素。<br>　　♥ void erase(const std::vector&lt;K&gt;&amp; keys)：删除keys集合中包含的所有键在Map中对应的元素。<br>　　♥ void clear()：清空Map容器。<br>　　♥ V getRandomObject() const：从Map容器中获取一个随机值。</p>
-<hr>
-<h2 id="cocos2d-Value"><a href="#cocos2d-Value" class="headerlink" title="cocos2d::Value"></a>cocos2d::Value</h2><p>　　cocos2d::Value是许多基本类型（bool、unsigned char、char*、int、float、double和std::string）和std::vector&lt;Value&gt;、std::unordered_map&lt;std::string, Value&gt;及std::unordered_map&lt;int,Value&gt;这些类的包装类型。可以将上面提到的基本类放到cocos2d::Value对象中将它们转化成对应的类型，反之亦然。cocos2d::Value底层用一个统一的变量来存储任意基本类型值，这样更加节省内存。</p>
+<h2 id="骨骼动画"><a href="#骨骼动画" class="headerlink" title="骨骼动画"></a>骨骼动画</h2><p>　　当游戏中的动作较多时，使用序列帧动画就会造成包体大等问题，那么怎么减小包体呢？此时就应该使用骨骼动画来代替序列帧动画，序列帧动画是由精灵动作中不同时间的快照组成的，快照数（帧数）的多少决定着动作的流畅性，而骨骼动画是将精灵拆分成多个小的部分（骨骼），然后改变部分骨骼的动作状态来改变精灵的动作状态。制作骨骼动画的方法有几种我不知道，但是不止两三种，每种导出的文件都不同，在Cocos2d-x中的使用方法也不同。<br>　　下面船长只展示了利用CocosStudio制作的骨骼动画，代码如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//需要加入头文件#include "cocostudio/CocoStudio.h"</span></span><br><span class="line"><span class="comment">//以及命名空间using namespace cocostudio;</span></span><br><span class="line">ArmatureDataManager::getInstance()-&gt;addArmatureFileInfo(<span class="string">"niuZai.ExportJson"</span>);</span><br><span class="line"><span class="keyword">auto</span> niuZai = Armature::create(<span class="string">"niuZai"</span>);</span><br><span class="line">niuZai-&gt;setPosition(Vec2(<span class="number">700</span>, <span class="number">200</span>));</span><br><span class="line"><span class="comment">//执行动作，这里通过动作名称获得动作，也可通过动作索引序号获得</span></span><br><span class="line">niuZai-&gt;getAnimation()-&gt;play(<span class="string">"Walk"</span>);	</span><br><span class="line">niuZai-&gt;runAction(MoveBy::create(<span class="number">3.0f</span>, Vec2(<span class="number">-500</span>, <span class="number">0</span>)));</span><br><span class="line">addChild(niuZai);</span><br></pre></td></tr></table></figure></p>
+<p>　　资源图如下：<img src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-3-2.png-imageStyle" alt="Cocos2d-x-two-3-2.png"><img src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-3-3.png-imageStyle" alt="Cocos2d-x-two-3-3.png">效果展示如下：<video width="100%" height="width*2/3.0" autoplay="true" loop="true" src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-two-3-2.mp4"></video></p>
 <hr>
 <p><strong><em>版权声明：本文为船长原创文章，未经船长允许不得转载。</em></strong></p>
 
@@ -365,17 +369,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/11/Cocos2d-x-one-2/" rel="next" title="Cocos2d-x的Layer、Director与Sprite的概述">
-                <i class="fa fa-chevron-left"></i> Cocos2d-x的Layer、Director与Sprite的概述
+              <a href="/2016/08/02/Cocos2d-x-two-2/" rel="next" title="Cocos2d-x之动作">
+                <i class="fa fa-chevron-left"></i> Cocos2d-x之动作
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/24/Cocos2d-x-two-1/" rel="prev" title="第一个Cocos2d-x项目之HelloWorld详解">
-                第一个Cocos2d-x项目之HelloWorld详解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -424,8 +424,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/17/Cocos2d-x-one-3/"
-           data-title="Cocos2d-x的Vector、Map和Value容器" data-url="http://www.an-coder.com/2016/07/17/Cocos2d-x-one-3/">
+      <div class="ds-thread" data-thread-key="2016/08/11/Cocos2d-x-two-3/"
+           data-title="Cocos2d-x之动画" data-url="http://www.an-coder.com/2016/08/11/Cocos2d-x-two-3/">
       </div>
     
   </div>
@@ -529,7 +529,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#cocos2d-Vector-lt-T-gt"><span class="nav-number">1.</span> <span class="nav-text">cocos2d::Vector<T></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cocos2d-Map-lt-K-V-gt"><span class="nav-number">2.</span> <span class="nav-text">cocos2d::Map<K,V></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cocos2d-Value"><span class="nav-number">3.</span> <span class="nav-text">cocos2d::Value</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#序列帧动画"><span class="nav-number">1.</span> <span class="nav-text">序列帧动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#骨骼动画"><span class="nav-number">2.</span> <span class="nav-text">骨骼动画</span></a></li></ol></div>
             
           </div>
         </section>
