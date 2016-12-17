@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.an-coder.com/2016/07/04/Cocos2d-x-one-1/</loc>
+    
+    <lastmod>2016-09-17T06:43:47.901Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.an-coder.com/2016/08/22/Cocos2d-x-three-1/</loc>
     
-    <lastmod>2016-09-04T04:54:35.492Z</lastmod>
+    <lastmod>2016-09-10T07:28:14.591Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.an-coder.com/2016/08/30/Cocos2d-x-three-2/</loc>
+    
+    <lastmod>2016-09-04T08:20:09.609Z</lastmod>
     
   </url>
   
@@ -40,13 +54,6 @@
     <loc>http://www.an-coder.com/2016/07/11/Cocos2d-x-one-2/</loc>
     
     <lastmod>2016-07-22T15:53:26.168Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.an-coder.com/2016/07/04/Cocos2d-x-one-1/</loc>
-    
-    <lastmod>2016-07-22T13:56:46.792Z</lastmod>
     
   </url>
   

@@ -82,16 +82,16 @@
 
 
 
-<meta name="description" content="从Cocos2d-x3.0开始使用Vector&amp;lt;T&amp;gt;和Map&amp;lt;K,V&amp;gt;代替之前版本的CCArray和CCDictionary，新的容器类使用模板类避免了不必要的数据类型转换，同时能够完美地支持标准库中的各种迭代操作，例如std::find()、std::sort()等。实际上，Vector&amp;lt;T&amp;gt;和Map&amp;lt;K,V&amp;gt;仅是对标准库中的std::vect">
+<meta name="description" content="爱生活的程序猿">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cocos2d-x的Vector、Map和Value容器">
-<meta property="og:url" content="http://www.an-coder.com/2016/07/17/Cocos2d-x-one-3/index.html">
+<meta property="og:title" content="Cocos2d-x的菜单">
+<meta property="og:url" content="http://www.an-coder.com/2016/08/30/Cocos2d-x-three-2/index.html">
 <meta property="og:site_name" content="An_coder">
-<meta property="og:description" content="从Cocos2d-x3.0开始使用Vector&amp;lt;T&amp;gt;和Map&amp;lt;K,V&amp;gt;代替之前版本的CCArray和CCDictionary，新的容器类使用模板类避免了不必要的数据类型转换，同时能够完美地支持标准库中的各种迭代操作，例如std::find()、std::sort()等。实际上，Vector&amp;lt;T&amp;gt;和Map&amp;lt;K,V&amp;gt;仅是对标准库中的std::vect">
-<meta property="og:updated_time" content="2016-08-02T12:32:06.923Z">
+<meta property="og:description" content="爱生活的程序猿">
+<meta property="og:updated_time" content="2016-09-04T08:20:09.609Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Cocos2d-x的Vector、Map和Value容器">
-<meta name="twitter:description" content="从Cocos2d-x3.0开始使用Vector&amp;lt;T&amp;gt;和Map&amp;lt;K,V&amp;gt;代替之前版本的CCArray和CCDictionary，新的容器类使用模板类避免了不必要的数据类型转换，同时能够完美地支持标准库中的各种迭代操作，例如std::find()、std::sort()等。实际上，Vector&amp;lt;T&amp;gt;和Map&amp;lt;K,V&amp;gt;仅是对标准库中的std::vect">
+<meta name="twitter:title" content="Cocos2d-x的菜单">
+<meta name="twitter:description" content="爱生活的程序猿">
 
 
 
@@ -109,7 +109,7 @@
   };
 </script>
 
-  <title> Cocos2d-x的Vector、Map和Value容器 | An_coder </title>
+  <title> Cocos2d-x的菜单 | An_coder </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -239,7 +239,7 @@
             
             
               
-                Cocos2d-x的Vector、Map和Value容器
+                Cocos2d-x的菜单
               
             
           </h1>
@@ -251,8 +251,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-17T21:12:34+08:00" content="2016-07-17">
-              2016-07-17
+            <time itemprop="dateCreated" datetime="2016-08-30T16:17:02+08:00" content="2016-08-30">
+              2016-08-30
             </time>
           </span>
 
@@ -281,8 +281,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/17/Cocos2d-x-one-3/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/17/Cocos2d-x-one-3/" itemprop="commentsCount"></span>
+                <a href="/2016/08/30/Cocos2d-x-three-2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/30/Cocos2d-x-three-2/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -312,15 +312,7 @@
       
 
       
-        <p>　　从Cocos2d-x3.0开始使用Vector&lt;T&gt;和Map&lt;K,V&gt;代替之前版本的CCArray和CCDictionary，新的容器类使用模板类避免了不必要的数据类型转换，同时能够完美地支持标准库中的各种迭代操作，例如std::find()、std::sort()等。实际上，Vector&lt;T&gt;和Map&lt;K,V&gt;仅是对标准库中的std::vector&lt;T&gt;和std::unordered_map&lt;K,V&gt;的封装，使它们能够结合Cocos2d-x的内存管理方式。新的容器类不在继承CCObject类，而是继承自3.0新增的Ref类，cocos2d::Vector&lt;T&gt;和cocos2d::Map&lt;K,V&gt;将以值类型在堆栈（stack）中分配，它们使用C++的自动内存管理，而不需要使用new和delete来进行分配与删除内存，这更遵循C++中容器的使用风格，且读取速度也更快。</p>
-<h2 id="cocos2d-Vector-lt-T-gt"><a href="#cocos2d-Vector-lt-T-gt" class="headerlink" title="cocos2d::Vector&lt;T&gt;"></a>cocos2d::Vector&lt;T&gt;</h2><p>　　cocos2d::Vector&lt;T&gt;是一个封装好的能动态增长顺序访问的容器。cocos2d::Vector&lt;T&gt;中的元素是按序存储的，它的底层实现数据结构是标准板库中的标准顺序容器std::vector。设计者将cocos2d::Vector&lt;T&gt;设计为cocos2d::CCArray的替代品。按照Cocos2d-x容器的内存管理要求，存入容器的对象必须是cocos2d::Ref或其派生类。<br>　　cocos2d::Vector&lt;T&gt;使用标准顺序容器std::vector&lt;T&gt;的基本操作加上Cocos2d-x的内存管理规则来覆盖该模板原先的普通操作。所以，pushBack()操作将会保留传递过来的参数，而popBack()则会释放容器中最后一个元素。cocos2d::Vector&lt;T&gt;提供了不同类型的迭代器，所以我们可以受益于C++的标准函数库，可以使用大量标准泛型算法和for_each循环。除了std::vector容器的操作之外，还加入了许多标准算法，诸如std::find、std::reverse和std::swap，这些算法可以简化很多通用的操作。<br>　　cocos2d::Vector&lt;T&gt;类的常用函数如下：<br>　　♠ ssize_t capacity() const：返回当前分配的存储容器大小。<br>　　♠ ssize_t size() const：返回容器中元素的数量。<br>　　♠ bool empty() const：判断容器是否为空，即容器中是否有元素。<br>　　♠ ssize_t max_size() const：返回容器可以容纳最大的元素数量。<br>　　♠ ssize_t getIndex(T object) const：返回object在容器中的索引。<br>　　♠ iterator find(T object)：查找object对象，返回一个迭代器。<br>　　♠ T at(ssize_t index) const：返回容器中位置（索引）为index的元素。<br>　　♠ T front() const：返回容器中的第一个元素。<br>　　♠ T back() const：返回容器中的最后一个元素。<br>　　♠ T getRandomObject() const：随机返回容器中的一个元素。<br>　　♠ bool contains(T object) const：判断object是否是容器中的元素。<br>　　♠ bool equals(const Vector&lt;T&gt; &amp;other)：判断该容器与other容器是否相等。<br>　　♠ void pushBack(T object)：将object对象添加到容器的末尾。<br>　　♠ void pushBack(const Vector&lt;T&gt;&amp; other)：将other容器中的所有元素添加到当前容器中。<br>　　♠ void insert(ssize_t index, T object)：将object对象插入到容器的index（索引）的位置。<br>　　♠ void popBack()：删除容器中的最后一个元素。<br>　　♠ void eraseObject(T object, bool toRelease = true)：将object对象从容器中删除。<br>　　♠ iterator erase(iterator position)：从容器中删除指定的迭代器。<br>　　♠ iterator erase(iterator first, iterator last)：从容器中删除从fist到last的迭代器。<br>　　♠ void clear()：删除容器中的所有的元素，删除后容器的size为0。<br>　　♠ void swap(T object1, T object2)：将容器中的object1与object2对象进行位置索引交换。<br>　　♠ void swap(ssize_t index1, ssize_t index2)：根据索引交换两个元素。<br>　　♠ void replace(ssize_t index, T object)：将object参数替换index索引的元素。<br>　　♠ void reverse()：反转容器中的元素。</p>
-<hr>
-<h2 id="cocos2d-Map-lt-K-V-gt"><a href="#cocos2d-Map-lt-K-V-gt" class="headerlink" title="cocos2d::Map&lt;K,V&gt;"></a>cocos2d::Map&lt;K,V&gt;</h2><p>　　cocos2d::Map&lt;K,V&gt;类使用std::unordered_map作为底层结构的关联式容器。而std::unordered_map是一个存储键值对的关联式容器，它可以通过Key（键）快速检索对应的value（值），键是唯一的，值与键对应，在容器内部元素是无序的，它们是根据键的哈希值来存储的，存入容器的对象必须是cocos2d::Ref类或其派生类。<br>　　cocos2d::Map&lt;K,V&gt;类的常用函数如下：<br>　　♥ ssize_t size() const：返回Map容器中元素的数量。<br>　　♥ bool empty() const：判断Map容器是否为空。<br>　　♥ std::vector&lt;K&gt; keys() const：返回Map容器中所有键的集合，返回的是C++标准容器std::vector。<br>　　♥ std::vector&lt;K&gt; keys(V object) const：返回object在Map中匹配的所有键的集合，返回的是C++标准容器std::vector。<br>　　♥ V at(const K&amp; key)：返回Map容器中键为key的值对象。<br>　　♥ iterator find(const K&amp; key)：通过key查找Map容器，返回一个迭代器，迭代器中有键与值。<br>　　♥ void insert(const K&amp; key, V object)：根据key与object向Map容器中插入元素。<br>　　♥ ssize_t erase(const K&amp; key)：根据key从Map容器中删除一个元素。<br>　　♥ iterator erase(const iterator position)：根据position（迭代器）从Map容器中删除一个元素。<br>　　♥ void erase(const std::vector&lt;K&gt;&amp; keys)：删除keys集合中包含的所有键在Map中对应的元素。<br>　　♥ void clear()：清空Map容器。<br>　　♥ V getRandomObject() const：从Map容器中获取一个随机值。</p>
-<hr>
-<h2 id="cocos2d-Value"><a href="#cocos2d-Value" class="headerlink" title="cocos2d::Value"></a>cocos2d::Value</h2><p>　　cocos2d::Value是许多基本类型（bool、unsigned char、char*、int、float、double和std::string）和std::vector&lt;Value&gt;、std::unordered_map&lt;std::string, Value&gt;及std::unordered_map&lt;int,Value&gt;这些类的包装类型。可以将上面提到的基本类放到cocos2d::Value对象中将它们转化成对应的类型，反之亦然。cocos2d::Value底层用一个统一的变量来存储任意基本类型值，这样更加节省内存。</p>
-<hr>
-<p><strong><em>版权声明：本文为船长原创文章，未经船长允许不得转载。</em></strong></p>
-
+        
       
     </div>
 
@@ -365,17 +357,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/11/Cocos2d-x-one-2/" rel="next" title="Cocos2d-x的Layer、Director与Sprite的概述">
-                <i class="fa fa-chevron-left"></i> Cocos2d-x的Layer、Director与Sprite的概述
+              <a href="/2016/08/22/Cocos2d-x-three-1/" rel="next" title="Cocos2d-x的文本渲染">
+                <i class="fa fa-chevron-left"></i> Cocos2d-x的文本渲染
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/24/Cocos2d-x-two-1/" rel="prev" title="第一个Cocos2d-x项目之HelloWorld详解">
-                第一个Cocos2d-x项目之HelloWorld详解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -424,8 +412,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/17/Cocos2d-x-one-3/"
-           data-title="Cocos2d-x的Vector、Map和Value容器" data-url="http://www.an-coder.com/2016/07/17/Cocos2d-x-one-3/">
+      <div class="ds-thread" data-thread-key="2016/08/30/Cocos2d-x-three-2/"
+           data-title="Cocos2d-x的菜单" data-url="http://www.an-coder.com/2016/08/30/Cocos2d-x-three-2/">
       </div>
     
   </div>
@@ -529,7 +517,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#cocos2d-Vector-lt-T-gt"><span class="nav-number">1.</span> <span class="nav-text">cocos2d::Vector<T></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cocos2d-Map-lt-K-V-gt"><span class="nav-number">2.</span> <span class="nav-text">cocos2d::Map<K,V></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cocos2d-Value"><span class="nav-number">3.</span> <span class="nav-text">cocos2d::Value</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
         </section>
