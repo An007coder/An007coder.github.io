@@ -82,16 +82,25 @@
 
 
 
-<meta name="description" content="爱生活的程序猿">
+<meta name="description" content="一款游戏常常会有一个菜单的，玩家可通过菜单设置游戏的一些属性，例如游戏声音是否开启，音量大小等等。那么Cocos2d-x中是怎样实现菜单的呢？下面船长就来说说Cocos2d-x中的菜单以及菜单项，大家请往下看。
+菜单类（Menu）　　Cocos2d-x中的菜单使用Menu类来实现，该类是一个容器，用来存放各种菜单项。Menu类继承关系图如下：
+　　通过继承关系图砸门可以看出Menu的父类是La">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cocos2d-x的菜单">
 <meta property="og:url" content="http://www.an-coder.com/2016/08/30/Cocos2d-x-three-2/index.html">
 <meta property="og:site_name" content="An_coder">
-<meta property="og:description" content="爱生活的程序猿">
-<meta property="og:updated_time" content="2016-09-04T08:20:09.609Z">
+<meta property="og:description" content="一款游戏常常会有一个菜单的，玩家可通过菜单设置游戏的一些属性，例如游戏声音是否开启，音量大小等等。那么Cocos2d-x中是怎样实现菜单的呢？下面船长就来说说Cocos2d-x中的菜单以及菜单项，大家请往下看。
+菜单类（Menu）　　Cocos2d-x中的菜单使用Menu类来实现，该类是一个容器，用来存放各种菜单项。Menu类继承关系图如下：
+　　通过继承关系图砸门可以看出Menu的父类是La">
+<meta property="og:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-three-2-1.png">
+<meta property="og:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-three-2-2.png-imageStyle">
+<meta property="og:updated_time" content="2017-01-02T09:10:33.261Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cocos2d-x的菜单">
-<meta name="twitter:description" content="爱生活的程序猿">
+<meta name="twitter:description" content="一款游戏常常会有一个菜单的，玩家可通过菜单设置游戏的一些属性，例如游戏声音是否开启，音量大小等等。那么Cocos2d-x中是怎样实现菜单的呢？下面船长就来说说Cocos2d-x中的菜单以及菜单项，大家请往下看。
+菜单类（Menu）　　Cocos2d-x中的菜单使用Menu类来实现，该类是一个容器，用来存放各种菜单项。Menu类继承关系图如下：
+　　通过继承关系图砸门可以看出Menu的父类是La">
+<meta name="twitter:image" content="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-three-2-1.png">
 
 
 
@@ -312,7 +321,21 @@
       
 
       
-        
+        <p>　　一款游戏常常会有一个菜单的，玩家可通过菜单设置游戏的一些属性，例如游戏声音是否开启，音量大小等等。那么Cocos2d-x中是怎样实现菜单的呢？下面船长就来说说Cocos2d-x中的菜单以及菜单项，大家请往下看。</p>
+<h2 id="菜单类（Menu）"><a href="#菜单类（Menu）" class="headerlink" title="菜单类（Menu）"></a>菜单类（Menu）</h2><p>　　Cocos2d-x中的菜单使用Menu类来实现，该类是一个容器，用来存放各种菜单项。Menu类继承关系图如下：</p>
+<p><div align="center"><img src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-three-2-1.png" alt="Cocos2d-x-three-2-1.png"></div><br>　　通过继承关系图砸门可以看出Menu的父类是Layer，所以它是一个容器，但是通常只用来装载各种菜单项而已。[/手动尴尬]（貌似说了两遍Menu是一个容器通常只用来装载菜单项。）<br>　　Menu类的常用函数如下：<br>　　♠ static Menu＊ create()：创建一个空菜单。<br>　　♠ static Menu＊ create(MenuItem＊ item, …)：根据菜单项对象创建一个菜单，菜单项为一个或多个。<br>　　♠ static Menu＊ createWithArray(const Vector＜MenuItem＊＞&amp; arrayOfItems)：通过给定的一组菜单项对象创建菜单。<br>　　♠ static Menu＊ createWithItem(MenuItem＊ item)：通过给定的一个菜单项对象创建菜单，之后可以通过addChild函数添加其他菜单项。<br>　　♠ void alignItemsVertically()：垂直对齐菜单项。<br>　　♠ void alignItemsVerticallyWithPadding(float padding)：以指定间距(padding)垂直排列菜单项。<br>　　♠ void alignItemsHorizontally()：水平对齐菜单项。<br>　　♠ void alignItemsHorizontallyWithPadding(float padding)：以指定间距(padding)水平排列菜单项。</p>
+<hr>
+<h2 id="菜单项（MenuItem）"><a href="#菜单项（MenuItem）" class="headerlink" title="菜单项（MenuItem）"></a>菜单项（MenuItem）</h2><p>　　Cocos2d-x中提供了多种菜单项，用于展现不同风格的游戏界面。MenuItem和它的子类可以加到Menu中形成菜单，MenuItem的父类及其子类图解如下：</p>
+<p><div align="center"><img src="http://7xuyyt.com1.z0.glb.clouddn.com/Cocos2d-x-three-2-2.png-imageStyle" alt="Cocos2d-x-three-2-2.png"></div><br>　　MenuItem类是所有菜单项的基类，so砸门不要直接使用该类，因为该类中并木有具体显示的功能，使其作为所有菜单项的父类，主要提供以下两个功能：<br>　　♥ 提供基本菜单项的状态：正常、选中和无效。<br>　　♥ 为菜单项对象实现了基本的回调函数机制。当游戏玩家单击按下一个菜单项时，通常需要执行一个动作，比如进入游戏场景或打开菜单选项等，此时就会调用一个函数来进行相关处理，这个函数就是菜单项的回调函数，砸门只需要在回调函数中实现相关功能就ok啦。</p>
+<h3 id="标签菜单项（MenuItemLabel）"><a href="#标签菜单项（MenuItemLabel）" class="headerlink" title="标签菜单项（MenuItemLabel）"></a>标签菜单项（MenuItemLabel）</h3><p>　　MenuItemLabel类是使用文字定义的菜单项，包括MenuItemAtlasFont和MenuItemFont两种定义菜单项字体的方式，之前博客中说到的LabelTTF、LabelBMFont、LabelAtlas和Label标签对象都可以放置在该菜单项中。该菜单项常用的create函数如下：<br>　　♣ static MenuItemLabel＊ create(Node＊ label, const ccMenuCallback&amp; callback)<br>　　以上create函数的第一个参数是菜单项中显示的标签对象，第二个参数是玩家单击时调用的回调函数。</p>
+<h3 id="自定义字体菜单项（MenuItemAtlasFont）"><a href="#自定义字体菜单项（MenuItemAtlasFont）" class="headerlink" title="自定义字体菜单项（MenuItemAtlasFont）"></a>自定义字体菜单项（MenuItemAtlasFont）</h3><p>　　该类继承自MenuItemLabel类，它支持使用LabelAtlas来创建菜单项的对象，该类常用的create函数如下：<br>　　♦ static MenuItemAtlasFont＊ create(const std::string&amp; value, const std::string&amp; charMapFile, int itemWidth, int itemHeight, char startCharMap, const ccMenuCallback&amp; callback)<br>　　以上create函数通过一个LabelAtlas对象来创建菜单项。第一个参数是菜单项中显示的文字内容，第二个参数是字体图集的名字，第三个参数是字体的宽度，第四个参数是字体的高度，第五个参数是字体图集开始的字符，第六个参数是单击时的回调函数。</p>
+<h3 id="字体菜单项（MenuItemFont）"><a href="#字体菜单项（MenuItemFont）" class="headerlink" title="字体菜单项（MenuItemFont）"></a>字体菜单项（MenuItemFont）</h3><p>　　该类同样继承自MenuItemLabel类，它支持直接使用文字来创建菜单项，文字字体是系统自带的。该类常用的create函数如下：<br>　　♠ static MenuItemFont＊ create(const std::string&amp; value, const ccMenuCallback&amp; callback)<br>　　以上create函数直接使用文字内容来创建菜单项。第一个参数是菜单项中显示的文字内容，第二个参数是单击时的回调函数。可以通过setFontName函数设置系统所支持的字体，通过setFontSize设置字体大小。</p>
+<h3 id="精灵菜单项（MenuItemSprite）"><a href="#精灵菜单项（MenuItemSprite）" class="headerlink" title="精灵菜单项（MenuItemSprite）"></a>精灵菜单项（MenuItemSprite）</h3><p>　　MenuItemSprite类是有由一个精灵对象组成的菜单项。该类有三个内部属性，提供了三个精灵对象，分别表示菜单的三种状态（正常、选中及无效）。菜单项的这三种状态，将会以三个精灵对象的方式来表现，这样就丰富了菜单项对象的表现方式。该类常用的create函数如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一个create函数</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> MenuItemSprite* <span class="title">create</span><span class="params">(Node* normalSprite, Node* selectedSprite, Node* disabledSprite)</span></span><br><span class="line"><span class="comment">//第二个create函数</span></span><br><span class="line"><span class="keyword">static</span> MenuItemSprite* <span class="title">create</span><span class="params">(Node* normalSprite, Node* selectedSprite, <span class="keyword">const</span> ccMenuCallback&amp; callback)</span></span><br><span class="line"><span class="comment">//第三个create函数</span></span><br><span class="line"><span class="keyword">static</span> MenuItemSprite* <span class="title">create</span><span class="params">(Node* normalSprite, Node* selectedSprite, Node* disabledSprite, <span class="keyword">const</span> ccMenuCallback&amp; callback)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>　　以上create函数可以使用三个精灵对象作为参数来创建一个菜单项。以第三个create函数来说明，第一个参数是正常状态下的精灵对象，第二个参数是选中状态下的精灵对象，第三个参数是无效状态下的精灵对象，第四个参数是单击时的回调函数。</p>
+<h3 id="图片菜单项（MenuItemImage）"><a href="#图片菜单项（MenuItemImage）" class="headerlink" title="图片菜单项（MenuItemImage）"></a>图片菜单项（MenuItemImage）</h3><p>　　MenuItemImage类继承自MenuItemSprite类，该类没有做太大的改变，只是提供了一个更为便捷的方式，将父类中的精灵对象换成了三张纹理图片。该类常用的create函数如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一个create函数</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> MenuItemImage* <span class="title">create</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; normalImage, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; selectedImage)</span></span><br><span class="line"><span class="comment">//第二个create函数</span></span><br><span class="line"><span class="keyword">static</span> MenuItemImage* <span class="title">create</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; normalImage, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; selectedImage, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; disabledImage)</span></span><br><span class="line"><span class="comment">//第三个create函数</span></span><br><span class="line"><span class="keyword">static</span> MenuItemImage* <span class="title">create</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; normalImage, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; selectedImage, <span class="keyword">const</span> ccMenuCallback&amp; callback)</span></span><br><span class="line"><span class="comment">//第四个create函数</span></span><br><span class="line"><span class="keyword">static</span> MenuItemImage* <span class="title">create</span><span class="params">(<span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; normalImage, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; selectedImage, <span class="keyword">const</span> <span class="built_in">std</span>::<span class="built_in">string</span>&amp; disabledImage, ccMenuCallback&amp; callback)</span></span></span><br></pre></td></tr></table></figure></p>
+<p>　　以上create函数直接使用纹理图片来创建菜单项。以第四个函数进行说明，第一个参数是正常状态下的纹理图，第二个参数是选中状态下的纹理图，第三个参数是无效状态下的纹理图，第四个参数是单击时的回调函数。该类与父类MenuItemSprite相比，省去了砸门自己创建精灵对象的过程。</p>
+<h3 id="触发器菜单项（MenuItemToggle）"><a href="#触发器菜单项（MenuItemToggle）" class="headerlink" title="触发器菜单项（MenuItemToggle）"></a>触发器菜单项（MenuItemToggle）</h3><p>　　MenuItemToggle类可以将任意菜单项传进去，作为触发器按钮时的开关。它在内部拥有一个MenuItem数组，用来实现不同状态的菜单项切换。该类常用的create函数如下：</p>
+
       
     </div>
 
@@ -517,7 +540,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#菜单类（Menu）"><span class="nav-number">1.</span> <span class="nav-text">菜单类（Menu）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#菜单项（MenuItem）"><span class="nav-number">2.</span> <span class="nav-text">菜单项（MenuItem）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#标签菜单项（MenuItemLabel）"><span class="nav-number">2.1.</span> <span class="nav-text">标签菜单项（MenuItemLabel）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义字体菜单项（MenuItemAtlasFont）"><span class="nav-number">2.2.</span> <span class="nav-text">自定义字体菜单项（MenuItemAtlasFont）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字体菜单项（MenuItemFont）"><span class="nav-number">2.3.</span> <span class="nav-text">字体菜单项（MenuItemFont）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#精灵菜单项（MenuItemSprite）"><span class="nav-number">2.4.</span> <span class="nav-text">精灵菜单项（MenuItemSprite）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片菜单项（MenuItemImage）"><span class="nav-number">2.5.</span> <span class="nav-text">图片菜单项（MenuItemImage）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#触发器菜单项（MenuItemToggle）"><span class="nav-number">2.6.</span> <span class="nav-text">触发器菜单项（MenuItemToggle）</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -539,8 +562,8 @@
 
 <div class="copyright" align="center" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
